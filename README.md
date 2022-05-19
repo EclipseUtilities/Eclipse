@@ -1,1 +1,1 @@
-![Logo](https://cdn.discordapp.com/attachments/899599934528057364/976885330118590504/biggerlogo.png =250x250)
+<img src="https://camo.githubusercontent.com/..." data-canonical-src="[https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png](https://cdn.discordapp.com/attachments/899599934528057364/976885330118590504/biggerlogo.png)" width="200" height="400" />
