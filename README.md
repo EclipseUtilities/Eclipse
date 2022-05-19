@@ -1,1 +1,1 @@
-# this has 0 use if you're here to read it
+![Logo](https://cdn.discordapp.com/attachments/899599934528057364/976885330118590504/biggerlogo.png)
