@@ -165,6 +165,63 @@ function createToggle(toggleText,toRun)
     toggleButton.MouseButton1Click:Connect(fire)
 end
 
+function createInputField(placeHolderText,uiName,playerInput)
+    local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
+    local holder = Instance.new("TextLabel")
+    holder.Size = UDim2.new(0.925,0,0,27)
+    holder.Name = uiName
+    holder.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0,5)
+    corner.Parent = holder
+    local corner2 = corner:Clone()
+    local padding = Instance.new("UIPadding")
+    padding.PaddingBottom = UDim.new(0.15,0)
+    padding.PaddingTop = UDim.new(0.15,0)
+    local textBox = Instance.new("TextBox")
+    textBox.AnchorPoint = Vector2.new(0.5,0.5)
+    textBox.BackgroundColor3 = Color3.fromRGB(34,34,34)
+    textBox.Position = UDim2.new(0.5,0,0.5,0)
+    textBox.Size = UDim2.new(0.981,0,0.757,0)
+    textBox.Font = Enum.Font.Gotham
+    textBox.TextScaled = true
+    textBox.PlaceholderColor3 = Color3.fromRGB(81,81,81)
+    textBox.TextColor3 = Color3.fromRGB(152,152,152)
+    textBox.PlaceholderText = placeHolderText
+    holder.Text = ""
+    textBox.Text = ""
+    corner2.Parent = textBox
+    padding.Parent = textBox
+    textBox.Parent = holder
+    holder.Parent = toAddTo
+    
+    if playerInput == true then
+        pcall(function()
+            local players = game:GetService("Players")
+
+            local function getPlayer(user)
+            	user = user:lower()
+            	for _,plr in ipairs(players:GetPlayers()) do
+            		if user == plr.Name:lower():sub(1, #user) then
+            			return plr
+            		end
+            	end
+            	return nil
+            end
+            
+            textBox:GetPropertyChangedSignal("Text"):Connect(function()
+            	textBox.Text = textBox.Text:sub(1,35)
+            end)
+            
+            textBox.FocusLost:Connect(function()
+            	if getPlayer(textBox.Text) ~= nil and textBox.Text ~= "" then
+            		textBox.Text = tostring(getPlayer(textBox.Text))
+            	end
+            end)
+        end)
+    end
+end
+
 function createSection(sectionText,top)
     local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
     local text = Instance.new("TextLabel")
