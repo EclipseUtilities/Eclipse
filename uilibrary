@@ -53,6 +53,8 @@ function createWindow()
     scrollingFrameParent.BackgroundColor3 = Color3.fromRGB(45,45,45)
     uiCorner2.Parent = scrollingFrameParent
     window = Instance.new("ScreenGui")
+    window.IgnoreGuiInset = true
+    window.ResetOnSpawn = false
     window.Name = name
     frame = Instance.new("Frame")
     uiCorner.Parent = frame
@@ -86,6 +88,7 @@ function createButton(text,toRun)
     button.Size = UDim2.new(0.925,0,0,27)
     button.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
     button.Text = text
+    button.AutoButtonColor = false
     local corner = Instance.new("UICorner")
     corner.CornerRadius = UDim.new(0,5)
     corner.Parent = button
@@ -94,6 +97,14 @@ function createButton(text,toRun)
     padding.PaddingTop = UDim.new(0.15,0)
     padding.Parent = button
     button.Parent = toAddTo
+    
+    button.MouseEnter:Connect(function()
+        button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    end)
+    
+    button.MouseLeave:Connect(function()
+       button.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
+    end)
     
     button.MouseButton1Click:Connect(function()
         pcall(toRun)
@@ -123,6 +134,7 @@ function createToggle(toggleText,toRun)
     padding.PaddingRight = UDim.new(0.3,0)
     padding.Parent = toggle
     local toggleButton = Instance.new("TextButton")
+    toggleButton.AutoButtonColor = false
     toggleButton.Size = UDim2.new(0,19,0,19)
     toggleButton.AnchorPoint = Vector2.new(0.5,0.5)
     toggleButton.Position = UDim2.new(1.39,0,0.5,0)
@@ -131,6 +143,18 @@ function createToggle(toggleText,toRun)
     corner2.Parent = toggleButton
     toggleButton.Parent = toggle
     toggle.Parent = toAddTo
+    
+    toggleButton.MouseEnter:Connect(function()
+                if toggleButton.BackgroundColor3 ~= Color3.fromRGB(65, 126, 71) then
+            toggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+        end
+    end)
+    
+    toggleButton.MouseLeave:Connect(function()
+        if toggleButton.BackgroundColor3 ~= Color3.fromRGB(65, 126, 71) then
+            toggleButton.BackgroundColor3 = Color3.fromRGB(61, 61, 61)
+        end
+    end)
     
     local function fire()
         enabled = not enabled
