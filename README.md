@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://cdn.discordapp.com/attachments/903297791223296060/976889258621141062/thing.png" alt="Eclipse Logo" width=500/>
+    <img src="https://cdn.discordapp.com/attachments/903297791223296060/976889258621141062/thing.png" alt="Eclipse Logo" width=700/>
     <br>
       <sub>Logo by <a href="https://github.com/qalue">@qalue</a></sub>
 </p>
@@ -9,5 +9,4 @@
   <a><img src="https://img.shields.io/github/languages/count/qalue/projects" alt="Languages"></img></a>
   <a><img src="https://img.shields.io/github/stars/qalue/projects" alt="Stars"></img></a>
   <a><img src="https://img.shields.io/snyk/vulnerabilities/github/qalue/projects" alt="Vulnerabilities"></img></a>
-  <a><img src="https://img.shields.io/librariesio/github/qalue/projects" alt="Dependencies"></img></a>
 </p>
