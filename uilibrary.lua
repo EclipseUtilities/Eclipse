@@ -114,8 +114,9 @@ function lib:Button(text,toRun)
     end)
 end
 
-function lib:Toggle(toggleText,toRun)
+function lib:Toggle(toggleText,toRun,default)
     local enabled = false
+	default=default or false
     toRun = toRun or function() end
     local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
     local toggle = Instance.new("TextLabel")
@@ -164,7 +165,9 @@ function lib:Toggle(toggleText,toRun)
         toggleButton.BackgroundColor3 = enabled and Color3.fromRGB(65, 126, 71) or Color3.fromRGB(61,61,61)
         pcall(toRun, enabled)
     end
-    
+	if default then 
+		pcall(toRun, enabled)
+	end;
     toggleButton.MouseButton1Click:Connect(fire)
 end
 
