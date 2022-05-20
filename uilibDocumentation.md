@@ -1,5 +1,6 @@
+<p align="center">
 # Eclipse
 This file is documentation for the UI Library 'Eclipse'
-<span style="color:orange;">Word up</span>
-<br>
+<br><br><br>
 ## Booting the Library
+</p>
