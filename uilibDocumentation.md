@@ -3,6 +3,7 @@ This documentation is to ensure that all people who use Eclipse UI Library know 
 <br><br>
 ## Booting The Library
 <br>
+
 ## Creating a Window
 
 ```lua
