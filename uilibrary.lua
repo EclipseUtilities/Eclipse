@@ -8,7 +8,7 @@ for _,v in pairs(game:GetService("CoreGui"):GetChildren()) do
     end
 end
 
-function createWindow()
+function CreateWindow()
     local uiCorner = Instance.new("UICorner")
     uiCorner.CornerRadius = UDim.new(0,10)
     local uiCorner2 = uiCorner:Clone()
@@ -80,7 +80,7 @@ function createWindow()
     end)
 end
 
-function createButton(text,toRun)
+function Button(text,toRun)
     toRun = toRun or function() end
     local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
     local button = Instance.new("TextButton")
@@ -113,7 +113,7 @@ function createButton(text,toRun)
     end)
 end
 
-function createToggle(toggleText,toRun)
+function Toggle(toggleText,toRun)
     local enabled = false
     toRun = toRun or function() end
     local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
@@ -167,7 +167,7 @@ function createToggle(toggleText,toRun)
     toggleButton.MouseButton1Click:Connect(fire)
 end
 
-function createInputField(placeHolderText,uiName,playerInput)
+function Input(placeHolderText,uiName,playerInput)
     local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
     local holder = Instance.new("TextLabel")
     holder.Size = UDim2.new(0.925,0,0,27)
@@ -223,8 +223,8 @@ function createInputField(placeHolderText,uiName,playerInput)
         end)
     end
 end
---[[ THIS IS BROKEN - DO NOT UNCOMMENT UNTIL FIXED
-function createBind(bindText,toRun)
+--!!  BINDS ARE BROKEN ;: DON'T UNCOMMENT UNLESS YOU'RE ONLY USING A SINGLE BIND
+--[[function createBind(bindText,toRun)
     toRun = toRun or function() end
     local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
     local bind = Instance.new("TextButton")
@@ -284,9 +284,9 @@ function createBind(bindText,toRun)
             fire()
         end
     end)
-end
-]]
-function createSection(sectionText,top)
+end]]
+
+function Section(sectionText,top)
     local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
     local text = Instance.new("TextLabel")
     text.Font = Enum.Font.GothamSemibold
