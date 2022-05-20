@@ -1,7 +1,7 @@
 local window,frame,name = nil,nil,"wRlwH7znJU5zekP"
 local keybind_listening = false
 local UIS = game:GetService("UserInputService")
-local lib = {}
+local bindTable,lib = {},{}
 
 for _,v in pairs(game:GetService("CoreGui"):GetChildren()) do
     if v.Name == name then
@@ -148,7 +148,7 @@ function lib:Toggle(toggleText,toRun)
     toggle.Parent = toAddTo
     
     toggleButton.MouseEnter:Connect(function()
-                if toggleButton.BackgroundColor3 ~= Color3.fromRGB(65, 126, 71) then
+        if toggleButton.BackgroundColor3 ~= Color3.fromRGB(65, 126, 71) then
             toggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
         end
     end)
@@ -224,8 +224,8 @@ function lib:Input(placeHolderText,uiName,playerInput)
         end)
     end
 end
---!!  BINDS ARE BROKEN ;: DON'T UNCOMMENT UNLESS YOU'RE ONLY USING A SINGLE BIND
---[[function createBind(bindText,toRun)
+
+function lib:Bind(bindText,toRun)
     toRun = toRun or function() end
     local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
     local bind = Instance.new("TextButton")
@@ -236,10 +236,15 @@ end
     bind.Size = UDim2.new(0.925,0,0,27)
     bind.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
     bind.TextXAlignment = Enum.TextXAlignment.Left
+    bind.Name = bindText
     bind.Text = bindText..": NONE"
     local corner = Instance.new("UICorner")
     corner.CornerRadius = UDim.new(0,5)
     corner.Parent = bind
+    local bindKey = Instance.new("StringValue")
+    bindKey.Value = ""
+    bindKey.Name = "Binding"
+    bindKey.Parent = bind
     local padding = Instance.new("UIPadding")
     padding.PaddingBottom = UDim.new(0.15,0)
     padding.PaddingTop = UDim.new(0.15,0)
@@ -259,33 +264,41 @@ end
     local function fire()
         pcall(toRun)
     end
-    
-    function SetTextForKeycode(keyCode)
-        keyCode = tostring(keyCode)
-        keyCode = string.sub(keyCode, string.len("Enum.KeyCode._"))
-        bind.Text = bindText..": "..keyCode
-        return keyCode
-    end
-    
+    local configuring
     bind.Activated:Connect(function()
+        if configuring then configuring = nil end
+        configuring = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame:FindFirstChild(bind.Name)
+        if table.find(bindTable,configuring:FindFirstChildWhichIsA("StringValue").Value) then
+            for i,v in pairs(bindTable) do
+                if v == configuring:FindFirstChildWhichIsA("StringValue").Value then
+                    table.remove(bindTable,i)
+                end
+            end
+        end
         keybind_listening = true
-        bind.Text = bindText..": . . ."
+        configuring.Text = bindText..": [ . . . ]"
     end)
     
     UIS.InputBegan:Connect(function(input,typing)
         if typing then return end
         if input.UserInputType == Enum.UserInputType.Keyboard then
+            if string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._")) == bindKey.Value then
+                fire()
+            end
+            if not configuring then return end
             if keybind_listening == true then
-                keybindThing = SetTextForKeycode(input.KeyCode)
-                keybind_listening = false
+                if not table.find(bindTable,string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._"))) then
+                    table.insert(bindTable,string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._")))
+                    configuring:FindFirstChildWhichIsA("StringValue").Value = string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._"))
+                    configuring.Text = bindText..": "..string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._"))
+                else
+                    configuring.Text = bindText..": NONE [TAKEN]"
+                end
+                configuring = nil
             end
         end
-        
-        if string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._")) == keybindThing then
-            fire()
-        end
     end)
-end]]
+end
 
 function lib:Section(sectionText,top)
     local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
