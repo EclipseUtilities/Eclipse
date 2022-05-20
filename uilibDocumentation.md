@@ -14,6 +14,17 @@ local EclipseLegacy = loadstring(game:HttpGet("https://raw.githubusercontent.com
 EclipseLegacy:CreateWindow()
 ```
 
+## Creating a Section
+
+```lua
+EclipseLegacy:Section("Text to Display",true)
+
+--[[
+text : <string> : Text that is displayed on the section
+onTop : <boolvalue> : If this is the FIRST section you are making, set it to true, otherwise remove 'true'
+]]
+```
+
 ## Creating a Button
 
 ```lua
@@ -36,8 +47,8 @@ EclipseLegacy:Toggle("Text to Display", function(state)
 end)
 
 --[[
-text : <string> : Text that is displayed on the button.
-function : <function> : The script that is ran upon the user clicking the button
+text : <string> : Text that is displayed on the toggle.
+function : <function> : The script that is ran upon the user clicking the toggle
 state : <boolvalue> : Activates every time the toggle is clicked, returns whether the toggle is set to true or false
 ]]
 ```
