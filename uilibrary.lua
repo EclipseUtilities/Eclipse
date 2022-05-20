@@ -166,7 +166,7 @@ function lib:Toggle(toggleText,toRun,default)
         pcall(toRun, enabled)
     end
 	if default then 
-		pcall(toRun, enabled)
+		fire()
 	end;
     toggleButton.MouseButton1Click:Connect(fire)
 end
