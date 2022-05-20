@@ -4,6 +4,7 @@ This documentation is to ensure that all people who use Eclipse UI Library know 
 ## Booting The Library
 <br>
 
+
 ## Creating a Window
 
 ```lua
