@@ -9,7 +9,7 @@ for _,v in pairs(game:GetService("CoreGui"):GetChildren()) do
     end
 end
 
-function lib:CreateWindow()
+local lib:CreateWindow = function()
     local uiCorner = Instance.new("UICorner")
     uiCorner.CornerRadius = UDim.new(0,10)
     local uiCorner2 = uiCorner:Clone()
