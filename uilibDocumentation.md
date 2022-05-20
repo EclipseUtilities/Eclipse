@@ -26,3 +26,18 @@ text : <string> : Text that is displayed on the button.
 function : <function> : The script that is ran upon the user clicking the button
 ]]
 ```
+
+## Creating a Toggle
+
+
+```lua
+Window:Toggle("Text to Display", function(state)
+
+end)
+
+--[[
+text : <string> : Text that is displayed on the button.
+function : <function> : The script that is ran upon the user clicking the button
+state : <boolvalue> : Activates every time the toggle is clicked, returns whether the toggle is set to true or false
+]]
+```
