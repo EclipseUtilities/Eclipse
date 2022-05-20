@@ -3,7 +3,7 @@ This documentation is to ensure that all people who use Eclipse UI Library know 
 <br><br>
 ## Booting The Library
 ```lua
-local EclipseLibraryLegacy = loadstring(game:HttpGet("https://raw.githubusercontent.com/qalue/projects/main/uilibrary.lua",true))()
+local EclipseLegacy = loadstring(game:HttpGet("https://raw.githubusercontent.com/qalue/projects/main/uilibrary.lua",true))()
 ```
 <br><br><br>
 
@@ -11,13 +11,13 @@ local EclipseLibraryLegacy = loadstring(game:HttpGet("https://raw.githubusercont
 ## Creating a Window
 
 ```lua
-local Window = EclipseLibraryLegacy:CreateWindow()
+EclipseLegacy:CreateWindow()
 ```
 
 ## Creating a Button
 
 ```lua
-Window:Button("Text to Display", function()
+EclipseLegacy:Button("Text to Display", function()
 
 end)
 
@@ -31,7 +31,7 @@ function : <function> : The script that is ran upon the user clicking the button
 
 
 ```lua
-Window:Toggle("Text to Display", function(state)
+EclipseLegacy:Toggle("Text to Display", function(state)
 
 end)
 
