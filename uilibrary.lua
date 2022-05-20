@@ -1,4 +1,6 @@
 local window,frame,name = nil,nil,"wRlwH7znJU5zekP"
+local keybind_listening = false
+local UIS = game:GetService("UserInputService")
 
 for _,v in pairs(game:GetService("CoreGui"):GetChildren()) do
     if v.Name == name then
@@ -180,7 +182,7 @@ function createInputField(placeHolderText,uiName,playerInput)
     padding.PaddingTop = UDim.new(0.15,0)
     local textBox = Instance.new("TextBox")
     textBox.AnchorPoint = Vector2.new(0.5,0.5)
-    textBox.BackgroundColor3 = Color3.fromRGB(34,34,34)
+    textBox.BackgroundColor3 = Color3.fromRGB(47,47,47)
     textBox.Position = UDim2.new(0.5,0,0.5,0)
     textBox.Size = UDim2.new(0.981,0,0.757,0)
     textBox.Font = Enum.Font.Gotham
@@ -221,7 +223,69 @@ function createInputField(placeHolderText,uiName,playerInput)
         end)
     end
 end
-
+--[[ THIS IS BROKEN - DO NOT UNCOMMENT UNTIL FIXED
+function createBind(bindText,toRun)
+    toRun = toRun or function() end
+    local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
+    local bind = Instance.new("TextButton")
+    bind.Font = Enum.Font.Gotham
+    bind.AutoButtonColor = false
+    bind.TextScaled = true
+    bind.TextColor3 = Color3.fromRGB(152,152,152)
+    bind.Size = UDim2.new(0.925,0,0,27)
+    bind.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
+    bind.TextXAlignment = Enum.TextXAlignment.Left
+    bind.Text = bindText..": NONE"
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0,5)
+    corner.Parent = bind
+    local padding = Instance.new("UIPadding")
+    padding.PaddingBottom = UDim.new(0.15,0)
+    padding.PaddingTop = UDim.new(0.15,0)
+    padding.PaddingLeft = UDim.new(0.025,0)
+    padding.PaddingRight = UDim.new(0.025,0)
+    padding.Parent = bind
+    bind.Parent = toAddTo
+    
+    bind.MouseEnter:Connect(function()
+        bind.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    end)
+    
+    bind.MouseLeave:Connect(function()
+        bind.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
+    end)
+    
+    local function fire()
+        pcall(toRun)
+    end
+    
+    function SetTextForKeycode(keyCode)
+        keyCode = tostring(keyCode)
+        keyCode = string.sub(keyCode, string.len("Enum.KeyCode._"))
+        bind.Text = bindText..": "..keyCode
+        return keyCode
+    end
+    
+    bind.Activated:Connect(function()
+        keybind_listening = true
+        bind.Text = bindText..": . . ."
+    end)
+    
+    UIS.InputBegan:Connect(function(input,typing)
+        if typing then return end
+        if input.UserInputType == Enum.UserInputType.Keyboard then
+            if keybind_listening == true then
+                keybindThing = SetTextForKeycode(input.KeyCode)
+                keybind_listening = false
+            end
+        end
+        
+        if string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._")) == keybindThing then
+            fire()
+        end
+    end)
+end
+]]
 function createSection(sectionText,top)
     local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
     local text = Instance.new("TextLabel")
