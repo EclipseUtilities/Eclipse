@@ -230,7 +230,6 @@ function lib:Input(placeHolderText,uiName,playerInput)
 end
 
 function lib:Bind(bindText,toRun,default)
-	print(default)
     toRun = toRun or function() end
     local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
     local bind = Instance.new("TextButton")
