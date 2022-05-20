@@ -52,3 +52,10 @@ function : <function> : The script that is ran upon the user clicking the toggle
 state : <boolvalue> : Activates every time the toggle is clicked, returns whether the toggle is set to true or false
 ]]
 ```
+
+## Creating a Bind
+
+
+```lua
+-- COMING SOON : BINDS ARE CURRENTLY BROKEN --
+```
