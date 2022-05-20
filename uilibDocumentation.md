@@ -20,8 +20,8 @@ EclipseLegacy:CreateWindow()
 EclipseLegacy:Section("Text to Display",true)
 
 --[[
-text : <string> : Text that is displayed on the section
-onTop : <boolvalue> : If this is the FIRST section you are making, set it to true, otherwise remove 'true'
+text : <string> : Text that is displayed on the section.
+onTop : <boolvalue> : If this is the FIRST section you are making, set it to true, otherwise remove 'true'.
 ]]
 ```
 
@@ -34,7 +34,7 @@ end)
 
 --[[
 text : <string> : Text that is displayed on the button.
-function : <function> : The script that is ran upon the user clicking the button
+function : <function> : The script that is ran upon the user clicking the button.
 ]]
 ```
 
@@ -48,8 +48,8 @@ end)
 
 --[[
 text : <string> : Text that is displayed on the toggle.
-function : <function> : The script that is ran upon the user clicking the toggle
-state : <boolvalue> : Activates every time the toggle is clicked, returns whether the toggle is set to true or false
+function : <function> : The script that is ran upon the user clicking the toggle.
+state : <boolvalue> : Activates every time the toggle is clicked, returns whether the toggle is set to true or false.
 ]]
 ```
 
@@ -57,5 +57,12 @@ state : <boolvalue> : Activates every time the toggle is clicked, returns whethe
 
 
 ```lua
--- COMING SOON : BINDS ARE CURRENTLY BROKEN --
+EclipseLegacy:Bind("Text to Display", function()
+
+end)
+
+--[[
+text : <string> : Text that is displayed on the bind.
+function : <function> : The script that is ran upon the user pressing the bound key.
+]]
 ```
