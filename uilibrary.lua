@@ -2,14 +2,13 @@ local window,frame,name = nil,nil,"wRlwH7znJU5zekP"
 local keybind_listening = false
 local UIS = game:GetService("UserInputService")
 
-local EclipseLibraryLegacy = {}
 for _,v in pairs(game:GetService("CoreGui"):GetChildren()) do
     if v.Name == name then
         v:Destroy()
     end
 end
 
-EclipseLibraryLegacy:CreateWindow = function()
+function CreateWindow()
     local uiCorner = Instance.new("UICorner")
     uiCorner.CornerRadius = UDim.new(0,10)
     local uiCorner2 = uiCorner:Clone()
