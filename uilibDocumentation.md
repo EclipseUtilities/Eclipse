@@ -13,3 +13,16 @@ local EclipseLibraryLegacy = loadstring(game:HttpGet("https://raw.githubusercont
 ```lua
 local Window = EclipseLibraryLegacy:CreateWindow()
 ```
+
+## Creating a Button
+
+```lua
+Window:Button("Text to Display", function()
+
+end)
+
+--[[
+text : <string> : Text that is displayed on the button.
+function : <function> : The script that is ran upon the user clicking the button
+]]
+```
