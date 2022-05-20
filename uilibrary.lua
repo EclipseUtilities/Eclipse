@@ -1,6 +1,7 @@
 local window,frame,name = nil,nil,"wRlwH7znJU5zekP"
 local keybind_listening = false
 local UIS = game:GetService("UserInputService")
+local lib = {}
 
 for _,v in pairs(game:GetService("CoreGui"):GetChildren()) do
     if v.Name == name then
@@ -8,7 +9,7 @@ for _,v in pairs(game:GetService("CoreGui"):GetChildren()) do
     end
 end
 
-function CreateWindow()
+function lib:CreateWindow()
     local uiCorner = Instance.new("UICorner")
     uiCorner.CornerRadius = UDim.new(0,10)
     local uiCorner2 = uiCorner:Clone()
@@ -80,7 +81,7 @@ function CreateWindow()
     end)
 end
 
-function Button(text,toRun)
+function lib:Button(text,toRun)
     toRun = toRun or function() end
     local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
     local button = Instance.new("TextButton")
@@ -113,7 +114,7 @@ function Button(text,toRun)
     end)
 end
 
-function Toggle(toggleText,toRun)
+function lib:Toggle(toggleText,toRun)
     local enabled = false
     toRun = toRun or function() end
     local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
@@ -167,7 +168,7 @@ function Toggle(toggleText,toRun)
     toggleButton.MouseButton1Click:Connect(fire)
 end
 
-function Input(placeHolderText,uiName,playerInput)
+function lib:Input(placeHolderText,uiName,playerInput)
     local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
     local holder = Instance.new("TextLabel")
     holder.Size = UDim2.new(0.925,0,0,27)
@@ -286,7 +287,7 @@ end
     end)
 end]]
 
-function Section(sectionText,top)
+function lib:Section(sectionText,top)
     local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
     local text = Instance.new("TextLabel")
     text.Font = Enum.Font.GothamSemibold
@@ -306,3 +307,5 @@ function Section(sectionText,top)
     padding.Parent = text
     text.Parent = toAddTo
 end
+
+return lib
