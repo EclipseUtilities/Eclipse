@@ -2,6 +2,7 @@ local window,frame,name = nil,nil,"Eclipse"
 local keybind_listening = false
 local UIS = game:GetService("UserInputService")
 local bindTable,lib = {},{}
+local connectionTable = {}
 
 for _,v in pairs(game:GetService("CoreGui"):GetChildren()) do
     if v.Name == name then
@@ -228,7 +229,8 @@ function lib:Input(placeHolderText,uiName,playerInput)
     end
 end
 
-function lib:Bind(bindText,toRun)
+function lib:Bind(bindText,toRun,default)
+	print(default)
     toRun = toRun or function() end
     local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
     local bind = Instance.new("TextButton")
@@ -240,14 +242,14 @@ function lib:Bind(bindText,toRun)
     bind.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
     bind.TextXAlignment = Enum.TextXAlignment.Left
     bind.Name = bindText
-    bind.Text = bindText..": NONE"
+    bind.Text = bindText..': '..(default and default)or "NONE"
     local corner = Instance.new("UICorner")
     corner.CornerRadius = UDim.new(0,5)
     corner.Parent = bind
     local bindKey = Instance.new("StringValue")
-    bindKey.Value = ""
     bindKey.Name = "Binding"
     bindKey.Parent = bind
+	bindKey.Value=default or ''
     local padding = Instance.new("UIPadding")
     padding.PaddingBottom = UDim.new(0.15,0)
     padding.PaddingTop = UDim.new(0.15,0)
@@ -264,8 +266,8 @@ function lib:Bind(bindText,toRun)
         bind.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
     end)
     
-    local function fire()
-        pcall(toRun)
+    local function fire(key)
+        pcall(function()toRun(key)end)
     end
     local configuring
     bind.Activated:Connect(function()
@@ -281,12 +283,14 @@ function lib:Bind(bindText,toRun)
         keybind_listening = true
         configuring.Text = bindText..": [ . . . ]"
     end)
-    
-    UIS.InputBegan:Connect(function(input,typing)
+    local key=default or 'None'
+    connectionTable[#connectionTable+1]=UIS.InputBegan:Connect(function(input,typing)
         if typing then return end
         if input.UserInputType == Enum.UserInputType.Keyboard then
             if string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._")) == bindKey.Value then
-                fire()
+				if key then
+					fire()
+				end
             end
             if not configuring then return end
             if keybind_listening == true then
@@ -294,9 +298,12 @@ function lib:Bind(bindText,toRun)
                     table.insert(bindTable,string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._")))
                     configuring:FindFirstChildWhichIsA("StringValue").Value = string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._"))
                     configuring.Text = bindText..": "..string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._"))
+					key=tostring(input.KeyCode.Name)
+					fire(key);
                 else
                     configuring.Text = bindText..": NONE [TAKEN]"
                 end
+				keybind_listening=false
                 configuring = nil
             end
         end
@@ -324,4 +331,14 @@ function lib:Section(sectionText,top)
     text.Parent = toAddTo
 end
 
+connectionTable[#connectionTable+1]=game.CoreGui.ChildRemoved:Connect(function(UI)
+	if tostring(UI)==name then 
+		for i=1,#connectionTable do 
+			local connection=connectionTable[i]
+			pcall(function()
+				connection:Disconnect()
+			end);
+		end;
+	end;
+end)
 return lib
