@@ -1,6 +1,10 @@
-<p align="center">
-  <h1>Eclipse</h1>
-  <h5>This file is documentation for the UI Library 'Eclipse'<h5>
-  <br>
-  <h3>Booting the Library<h3>
-</p>
+# Eclipse
+This documentation is to ensure that all people who use Eclipse UI Library know how to use it.
+
+## Booting The Library
+
+## Creating a Window
+
+```lua
+print("hi")
+```
