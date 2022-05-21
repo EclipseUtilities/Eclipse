@@ -194,7 +194,7 @@ function lib:Input(infoText,placeHolderText,uiName,playerInput)
     textBox.AnchorPoint = Vector2.new(0.5,0.5)
     textBox.BackgroundColor3 = Color3.fromRGB(47,47,47)
     textBox.Position = UDim2.new(0.788,0,0.5,0)
-    textBox.Size = UDim2.new(0.4,0,0.7,0)
+    textBox.Size = UDim2.new(0.4,0,0.95,0)
     textBox.Font = Enum.Font.Gotham
     textBox.TextScaled = true
     textBox.PlaceholderColor3 = Color3.fromRGB(81,81,81)
