@@ -172,7 +172,7 @@ function lib:Toggle(toggleText,toRun,default)
     toggleButton.MouseButton1Click:Connect(fire)
 end
 
-function lib:Input(infoText,placeHolderText,uiName,playerInput,intOnly)
+function lib:Input(infoText,placeHolderText,uiName,playerInput,intOnly,toRun)
     local toAddTo = game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
     local holder = Instance.new("TextLabel")
     holder.Font = Enum.Font.Gotham
@@ -213,7 +213,11 @@ function lib:Input(infoText,placeHolderText,uiName,playerInput,intOnly)
     padding.Parent = textBox
     textBox.Parent = holder
     holder.Parent = toAddTo
-    
+
+    local function fire(inputtedText)
+        pcall(function()toRun(inputtedText)end)
+    end
+
     if playerInput == true then
         pcall(function()
             local players = game:GetService("Players")
@@ -244,6 +248,10 @@ function lib:Input(infoText,placeHolderText,uiName,playerInput,intOnly)
             textBox:GetPropertyChangedSignal("Text"):Connect(function()
             	textBox.Text = textBox.Text:sub(1,4)
                 textBox.Text = textBox.Text:gsub('%D+', '');
+            end)
+
+            textBox.FocusLost:Connect(function()
+                fire(textBox.Text)
             end)
         end)
     end
