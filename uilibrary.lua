@@ -172,10 +172,13 @@ function lib:Toggle(toggleText,toRun,default)
     toggleButton.MouseButton1Click:Connect(fire)
 end
 
-function lib:Input(placeHolderText,uiName,playerInput)
+function lib:Input(infoText,placeHolderText,uiName,playerInput)
     local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
     local holder = Instance.new("TextLabel")
     holder.Size = UDim2.new(0.925,0,0,27)
+    holder.TextScaled = true
+    holder.TextColor3 = Color3.fromRGB(152,152,152)
+    holder.Text = infoText
     holder.Name = uiName
     holder.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
     local corner = Instance.new("UICorner")
@@ -185,6 +188,8 @@ function lib:Input(placeHolderText,uiName,playerInput)
     local padding = Instance.new("UIPadding")
     padding.PaddingBottom = UDim.new(0.15,0)
     padding.PaddingTop = UDim.new(0.15,0)
+    local padding2 = padding:Clone()
+    padding2.Parent = holder
     local textBox = Instance.new("TextBox")
     textBox.AnchorPoint = Vector2.new(0.5,0.5)
     textBox.BackgroundColor3 = Color3.fromRGB(47,47,47)
@@ -197,7 +202,7 @@ function lib:Input(placeHolderText,uiName,playerInput)
     textBox.PlaceholderText = placeHolderText
     local stroke = Instance.new("UIStroke")
     stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-    stroke.Color = Color3.fromRGB(34,34,34)
+    stroke.Color = Color3.fromRGB(45,45,45)
     stroke.Parent = textBox
     holder.Text = ""
     textBox.Text = ""
