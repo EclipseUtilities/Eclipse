@@ -172,7 +172,7 @@ function lib:Toggle(toggleText,toRun,default)
     toggleButton.MouseButton1Click:Connect(fire)
 end
 
-function lib:Input(infoText,placeHolderText,uiName,playerInput,intOnly,toRun)
+function lib:Input(infoText,placeHolderText,playerInput,intOnly,toRun)
     local toAddTo = game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
     local holder = Instance.new("TextLabel")
     holder.Font = Enum.Font.Gotham
@@ -180,7 +180,6 @@ function lib:Input(infoText,placeHolderText,uiName,playerInput,intOnly,toRun)
     holder.TextScaled = true
     holder.TextColor3 = Color3.fromRGB(152,152,152)
     holder.Text = infoText
-    holder.Name = uiName
     holder.TextXAlignment = Enum.TextXAlignment.Left
     holder.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
     local corner = Instance.new("UICorner")
