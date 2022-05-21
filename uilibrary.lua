@@ -175,6 +175,7 @@ end
 function lib:Input(infoText,placeHolderText,uiName,playerInput)
     local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
     local holder = Instance.new("TextLabel")
+    holder.Font = Enum.Font.Gotham
     holder.Size = UDim2.new(0.925,0,0,27)
     holder.TextScaled = true
     holder.TextColor3 = Color3.fromRGB(152,152,152)
