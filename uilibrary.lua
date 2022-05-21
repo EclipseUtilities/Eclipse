@@ -172,7 +172,7 @@ function lib:Toggle(toggleText,toRun,default)
     toggleButton.MouseButton1Click:Connect(fire)
 end
 
-function lib:Input(infoText,placeHolderText,uiName,playerInput)
+function lib:Input(infoText,placeHolderText,uiName,playerInput,intOnly)
     local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
     local holder = Instance.new("TextLabel")
     holder.Font = Enum.Font.Gotham
@@ -181,6 +181,7 @@ function lib:Input(infoText,placeHolderText,uiName,playerInput)
     holder.TextColor3 = Color3.fromRGB(152,152,152)
     holder.Text = infoText
     holder.Name = uiName
+    holder.TextXAlignment = Enum.TextXAlignment.Left
     holder.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
     local corner = Instance.new("UICorner")
     corner.CornerRadius = UDim.new(0,5)
@@ -190,12 +191,14 @@ function lib:Input(infoText,placeHolderText,uiName,playerInput)
     padding.PaddingBottom = UDim.new(0.15,0)
     padding.PaddingTop = UDim.new(0.15,0)
     local padding2 = padding:Clone()
+    padding2.PaddingLeft = UDim.new(0.025,0)
+    padding2.PaddingRight = UDim.new(0.3,0)
     padding2.Parent = holder
     local textBox = Instance.new("TextBox")
     textBox.AnchorPoint = Vector2.new(0.5,0.5)
     textBox.BackgroundColor3 = Color3.fromRGB(47,47,47)
-    textBox.Position = UDim2.new(0.788,0,0.5,0)
-    textBox.Size = UDim2.new(0.4,0,0.95,0)
+    textBox.Position = UDim2.new(1.152,0,0.5,0)
+    textBox.Size = UDim2.new(0.55,0,0.95,0)
     textBox.Font = Enum.Font.Gotham
     textBox.TextScaled = true
     textBox.PlaceholderColor3 = Color3.fromRGB(81,81,81)
@@ -205,7 +208,6 @@ function lib:Input(infoText,placeHolderText,uiName,playerInput)
     stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
     stroke.Color = Color3.fromRGB(45,45,45)
     stroke.Parent = textBox
-    holder.Text = ""
     textBox.Text = ""
     corner2.Parent = textBox
     padding.Parent = textBox
@@ -234,6 +236,14 @@ function lib:Input(infoText,placeHolderText,uiName,playerInput)
             	if getPlayer(textBox.Text) ~= nil and textBox.Text ~= "" then
             		textBox.Text = tostring(getPlayer(textBox.Text))
             	end
+            end)
+        end)
+    end
+    if intOnly == true then
+        pcall(function()            
+            textBox:GetPropertyChangedSignal("Text"):Connect(function()
+            	textBox.Text = textBox.Text:sub(1,4)
+                textBox.Text = textBox.Text:gsub('%D+', '');
             end)
         end)
     end
