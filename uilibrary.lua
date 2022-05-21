@@ -4,7 +4,7 @@ local UIS = game:GetService("UserInputService")
 local bindTable,lib = {},{}
 local connectionTable = {}
 
-for _,v in pairs(game:GetService("CoreGui"):GetChildren()) do
+for _,v in pairs(game.CoreGui:GetChildren()) do
     if v.Name == name then
         v:Destroy()
     end
@@ -74,7 +74,7 @@ function lib:CreateWindow()
     frame.Selectable = true
     frame.Active = true
     frame.BackgroundColor3 = Color3.fromRGB(39,39,39)
-    window.Parent = game:GetService("CoreGui")
+    window.Parent = game.CoreGui
     
     scrollingFrame.CanvasSize = UDim2.new(0,0,0,layout.AbsoluteContentSize.Y)
     scrollingFrame.ChildAdded:Connect(function(child)
@@ -84,7 +84,7 @@ end
 
 function lib:Button(text,toRun)
     toRun = toRun or function() end
-    local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
+    local toAddTo = game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
     local button = Instance.new("TextButton")
     button.Font = Enum.Font.Gotham
     button.TextScaled = true
@@ -119,7 +119,7 @@ function lib:Toggle(toggleText,toRun,default)
     local enabled = false
 	default=default or false
     toRun = toRun or function() end
-    local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
+    local toAddTo = game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
     local toggle = Instance.new("TextLabel")
     toggle.Font = Enum.Font.Gotham
     toggle.TextScaled = true
@@ -173,7 +173,7 @@ function lib:Toggle(toggleText,toRun,default)
 end
 
 function lib:Input(infoText,placeHolderText,uiName,playerInput,intOnly)
-    local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
+    local toAddTo = game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
     local holder = Instance.new("TextLabel")
     holder.Font = Enum.Font.Gotham
     holder.Size = UDim2.new(0.925,0,0,27)
@@ -252,7 +252,7 @@ end
 function lib:Bind(bindText,toRun,default)
 	print(default)
     toRun = toRun or function() end
-    local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
+    local toAddTo = game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
     local bind = Instance.new("TextButton")
     bind.Font = Enum.Font.Gotham
     bind.AutoButtonColor = false
@@ -292,7 +292,7 @@ function lib:Bind(bindText,toRun,default)
     local configuring
     bind.Activated:Connect(function()
         if configuring then configuring = nil end
-        configuring = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame:FindFirstChild(bind.Name)
+        configuring = game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame:FindFirstChild(bind.Name)
         if table.find(bindTable,configuring:FindFirstChildWhichIsA("StringValue").Value) then
             for i,v in pairs(bindTable) do
                 if v == configuring:FindFirstChildWhichIsA("StringValue").Value then
@@ -331,7 +331,7 @@ function lib:Bind(bindText,toRun,default)
 end
 
 function lib:Section(sectionText,top)
-    local toAddTo = game:GetService("CoreGui"):FindFirstChild(name).Frame.ScrollingFrame
+    local toAddTo = game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
     local text = Instance.new("TextLabel")
     text.Font = Enum.Font.GothamSemibold
     text.TextScaled = true
