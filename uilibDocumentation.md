@@ -1,7 +1,7 @@
 # Eclipse
 This documentation is to ensure that all people who use Eclipse UI Library know how to use it.
 <br>
-<sub>test</sub>
+<sub>*Eclipse Legacy has been depreciated, therefore there is no documentation on it.</sub>
 <br><br>
 ## Booting The Library
 ```lua
