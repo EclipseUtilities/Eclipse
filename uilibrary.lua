@@ -1,4 +1,4 @@
-local window,frame,name = nil,nil,"Eclipse"
+local window,frame,name = nil,nil,"EclipseLegacy"
 local keybind_listening = false
 local UIS = game:GetService("UserInputService")
 local bindTable,lib = {},{}
