@@ -19,7 +19,7 @@ Eclipse:CreateWindow()
 ## Creating a Section
 
 ```lua
-Eclipse:CreateSection("Text to Display",true)
+Eclipse:CreateSection("Text to Display")
 
 --[[
 text : <string> : Text that is displayed on the section.
