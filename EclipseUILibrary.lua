@@ -10,24 +10,14 @@ for _,v in pairs(game.CoreGui:GetChildren()) do
     end
 end
 
-local defaultUIGradient=Instance.new("UIGradient")
-defaultUIGradient.Rotation=90
-defaultUIGradient.Color=ColorSequence.new{
-    ColorSequenceKeypoint.new(0,Color3.fromRGB(200,200,200)),
-    ColorSequenceKeypoint.new(0.25,Color3.fromRGB(200,200,200)),
-    ColorSequenceKeypoint.new(1,Color3.fromRGB(89,89,89))
-}
-
-local defaultUIGradientLight=Instance.new("UIGradient")
-defaultUIGradientLight.Rotation=90
-defaultUIGradientLight.Color=ColorSequence.new{
-    ColorSequenceKeypoint.new(0,Color3.fromRGB(220,220,220)),
-    ColorSequenceKeypoint.new(0.25,Color3.fromRGB(220,220,220)),
-    ColorSequenceKeypoint.new(1,Color3.fromRGB(109,109,109))
-}
-
 function lib:CreateWindow()
-    local defaultUIGradientClone = defaultUIGradient:Clone()
+    local defaultUIGradient=Instance.new("UIGradient")
+    defaultUIGradient.Rotation=90
+    defaultUIGradient.Color=ColorSequence.new{
+        ColorSequenceKeypoint.new(0,Color3.fromRGB(200,200,200)),
+        ColorSequenceKeypoint.new(0.25,Color3.fromRGB(200,200,200)),
+        ColorSequenceKeypoint.new(1,Color3.fromRGB(89,89,89))
+    }
     window=Instance.new("ScreenGui")
     window.Name=name
 
@@ -66,7 +56,7 @@ function lib:CreateWindow()
     text.TextColor3=Color3.fromRGB(255,255,255)
     text.TextScaled=true
     text.TextXAlignment=Enum.TextXAlignment.Left
-    defaultUIGradientClone.Parent=text
+    defaultUIGradient.Parent=text
     text.Parent=frame
 
     local uiPadding=Instance.new("UIPadding")
@@ -126,7 +116,13 @@ function lib:CreateSection(text)
     uiPadding.PaddingBottom=UDim.new(0.075,0)
     uiPadding.Parent=sectionText
 
-    local grad=defaultUIGradientLight:Clone()
+    local grad=Instance.new("UIGradient")
+    grad.Rotation=90
+    grad.Color=ColorSequence.new{
+        ColorSequenceKeypoint.new(0,Color3.fromRGB(220,220,220)),
+        ColorSequenceKeypoint.new(0.25,Color3.fromRGB(220,220,220)),
+        ColorSequenceKeypoint.new(1,Color3.fromRGB(109,109,109))
+    }
     grad.Parent=sectionText
 
     sectionText.Parent=toAddTo
