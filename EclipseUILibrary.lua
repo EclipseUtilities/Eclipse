@@ -268,10 +268,10 @@ function lib:CreateInput(infoText,text,script)
     input.Parent=inputHolder
 
     local uiPadding2=Instance.new("UIPadding")
-    uiPadding2.PaddingLeft=UDim.new(0.035, 0)
-    uiPadding2.PaddingRight=UDim.new(0.035, 0)
-    uiPadding2.PaddingBottom=UDim.new(0.035, 0)
-    uiPadding2.PaddingTop=UDim.new(0.035, 0)
+    uiPadding2.PaddingLeft=UDim.new(0.05, 0)
+    uiPadding2.PaddingRight=UDim.new(0.05, 0)
+    uiPadding2.PaddingBottom=UDim.new(0.05, 0)
+    uiPadding2.PaddingTop=UDim.new(0.05, 0)
     uiPadding2.Parent=input
 
     local uiCorner2=uiCorner:Clone()
