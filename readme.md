@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://cdn.discordapp.com/attachments/903297791223296060/976889258621141062/thing.png" alt="Eclipse Logo" width=700/>
+    <img src="https://cdn.discordapp.com/attachments/915713667222372424/981313403274526720/EclipseBanner.png" alt="Eclipse Logo" width=700/>
     <br>
       <sub>Logo by <a href="https://github.com/qalue">@qalue</a></sub>
     <br><br>
