@@ -6,14 +6,14 @@
     <strong>A GitHub respository filled with free, open source projects that I make.</strong>
 </p>
 <p align="center">
-  <a href="https://github.com/qalue/projects/commits/main"><img src="https://img.shields.io/github/commit-activity/m/qalue/projects?label=commits" alt="Commits"></img> </a>
-  <a href="https://github.com/qalue/projects/issues" alt="Issues"><img src="https://img.shields.io/github/issues/qalue/projects"></img></a>
-  <a><img src="https://img.shields.io/github/forks/qalue/projects" alt="Forks"></img></a>
-  <a><img src="https://img.shields.io/github/languages/count/qalue/projects" alt="Languages"></img></a>
-  <a><img src="https://img.shields.io/github/stars/qalue/projects" alt="Stars"></img></a>
+  <a href="https://github.com/qalue/Eclipse/commits/main"><img src="https://img.shields.io/github/commit-activity/m/qalue/Eclipse?label=commits" alt="Commits"></img> </a>
+  <a href="https://github.com/qalue/Eclipse/issues" alt="Issues"><img src="https://img.shields.io/github/issues/qalue/Eclipse"></img></a>
+  <a><img src="https://img.shields.io/github/forks/qalue/Eclipse" alt="Forks"></img></a>
+  <a><img src="https://img.shields.io/github/languages/count/qalue/Eclipse" alt="Languages"></img></a>
+  <a><img src="https://img.shields.io/github/stars/qalue/Eclipse" alt="Stars"></img></a>
   
   ## Support
   If you encounter an issue with any of the scripts provided you can either;
   - DM adam#8765 on discord
-  - Open an <a href="https://github.com/qalue/projects/issues">issue</a>
+  - Open an <a href="https://github.com/qalue/Eclipse/issues">issue</a>
 </p>
