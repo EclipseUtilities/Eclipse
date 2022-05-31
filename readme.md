@@ -3,7 +3,7 @@
     <br>
       <sub>Logo by <a href="https://github.com/qalue">@qalue</a></sub>
     <br><br>
-    <strong>A GitHub respository filled with free projects that I make.</strong>
+    <strong>A GitHub respository filled with free, open source projects that I make.</strong>
 </p>
 <p align="center">
   <a href="https://github.com/qalue/projects/commits/main"><img src="https://img.shields.io/github/commit-activity/m/qalue/projects?label=commits" alt="Commits"></img> </a>
