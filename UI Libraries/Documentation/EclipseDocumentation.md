@@ -5,7 +5,7 @@ This documentation is to ensure that all people who use Eclipse UI Library know 
 <br><br>
 ## Booting The Library
 ```lua
-local Eclipse = loadstring(game:HttpGet('https://raw.githubusercontent.com/qalue/projects/main/EclipseUILibrary.lua',true))()
+local Eclipse = loadstring(game:HttpGet('https://raw.githubusercontent.com/EclipseUtilities/Eclipse/main/UI%20Libraries/EclipseUILibrary.lua',true))()
 ```
 <br><br><br>
 
