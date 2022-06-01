@@ -16,6 +16,6 @@
   
   ## Support
   If you encounter an issue with any of the scripts provided you can either;
-  - DM adam#8765 on discord
+  - Make a ticket
   - Open an <a href="https://github.com/EclipseUtilities/Eclipse/issues">issue</a>
 </p>
