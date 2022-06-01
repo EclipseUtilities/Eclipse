@@ -16,6 +16,6 @@
   
   ## Support
   If you encounter an issue with any of the scripts provided you can either;
-  - Make a ticket
+  - Make a ticket in the <a href="https://discord.gg/bVGqteKHg8">discord server</a>
   - Open an <a href="https://github.com/EclipseUtilities/Eclipse/issues">issue</a>
 </p>
