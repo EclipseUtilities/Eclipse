@@ -404,4 +404,4 @@ connectionTable[#connectionTable+1]=game.CoreGui.ChildRemoved:Connect(function(U
 		end;
 	end;
 end)
-return lib
+return lib 
