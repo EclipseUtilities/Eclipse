@@ -54,6 +54,21 @@ state : <boolvalue> : Activates every time the toggle is clicked, returns whethe
 ]]
 ```
 
+## Creating an Input
+
+
+```lua
+Eclipse:CreateInput("Text to display on the INPUT","Text to display on the LEFT", function(inputtedText)
+
+end)
+
+--[[
+text : <string> : Text that is displayed inside of the input box.
+function : <function> : The script that is ran upon the user leaving the textbox.
+inputtedText : <string | number> : The inputted text into the input by the user.
+]]
+```
+
 ## Creating a Bind
 
 
