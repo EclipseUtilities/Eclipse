@@ -231,7 +231,7 @@ function lib:CreateToggle(text,script)
     toggle.MouseButton1Click:Connect(fire)
 end
 
-function lib:CreateInput(infoText,text,script)
+function lib:CreateInput(infoText,text,script,int)
     script=script or function() end
     local toAddTo=game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
     local inputHolder=Instance.new("TextLabel")
@@ -287,6 +287,12 @@ function lib:CreateInput(infoText,text,script)
     local function fire(inputtedText)
         pcall(function()script(inputtedText)end)
     end
+
+    input:GetPropertyChangedSignal("Text"):Connect(function()
+        if int then
+            input.Text = input.Text:gsub('%D+', '');
+        end
+    end)
 
     input.FocusLost:Connect(function()
         fire(input.Text)
