@@ -297,7 +297,6 @@ function lib:CreateBind(bindText,script)
     script=script or function() end
     local toAddTo=game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
     local bindButton=Instance.new("TextButton")
-    bindButton.Name=bindText
     bindButton.BackgroundColor3=Color3.fromRGB(32,32,32)
     bindButton.Font=Enum.Font.Gotham
     bindButton.Text=bindText
@@ -356,7 +355,7 @@ function lib:CreateBind(bindText,script)
     local configuring
     bindButton.Activated:Connect(function()
         if configuring then configuring = nil end
-        configuring = game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame:FindFirstChild(bindButton.Name)
+        configuring = bindButton
         if table.find(bindTable,configuring:FindFirstChildWhichIsA("StringValue").Value) then
             for i,v in pairs(bindTable) do
                 if v == configuring:FindFirstChildWhichIsA("StringValue").Value then
@@ -404,4 +403,4 @@ connectionTable[#connectionTable+1]=game.CoreGui.ChildRemoved:Connect(function(U
 		end;
 	end;
 end)
-return lib 
+return lib
