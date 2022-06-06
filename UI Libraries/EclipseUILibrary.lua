@@ -129,6 +129,31 @@ function lib:CreateSection(text)
     if first then first = false end
 end
 
+function lib:CreateLabel(text)
+    local toAddTo=game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
+    local label=Instance.new("TextLabel")
+    label.BackgroundColor3=Color3.fromRGB(32,32,32)
+    label.Font=Enum.Font.Gotham
+    label.Text=text
+    label.TextColor3=Color3.fromRGB(220,220,220)
+    label.TextScaled=true
+    label.TextXAlignment=Enum.TextXAlignment.Left
+    label.Size=UDim2.new(1,0,0,35)
+
+    local uiCorner=Instance.new("UICorner")
+    uiCorner.CornerRadius=UDim.new(0,5)
+    uiCorner.Parent=label
+
+    local uiPadding=Instance.new("UIPadding")
+    uiPadding.PaddingLeft=UDim.new(0.025, 0)
+    uiPadding.PaddingRight=UDim.new(0.025, 0)
+    uiPadding.PaddingBottom=UDim.new(0.225, 0)
+    uiPadding.PaddingTop=UDim.new(0.225, 0)
+    uiPadding.Parent=label
+
+    label.Parent=toAddTo
+end
+
 function lib:CreateButton(text,script)
     script=script or function() end
     local toAddTo=game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
