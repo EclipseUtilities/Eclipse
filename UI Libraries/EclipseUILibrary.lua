@@ -168,7 +168,7 @@ function lib:CreateButton(text,script)
     end)
 end
 
-function lib:CreateToggle(text,script)
+function lib:CreateToggle(text,script,defaultStatus)
     local enabled=false
     script=script or function() end
     local toAddTo=game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
@@ -208,6 +208,11 @@ function lib:CreateToggle(text,script)
     uiStroke.ApplyStrokeMode=Enum.ApplyStrokeMode.Border
     uiStroke.Color=Color3.fromRGB(50,50,50)
     uiStroke.Parent=toggle
+
+    if defaultStatus then
+        enabled=true
+        toggle.BackgroundColor3=enabled and Color3.fromRGB(57, 110, 71) or Color3.fromRGB(36,36,36)
+    end
 
     toggleHolder.Parent=toAddTo
 
