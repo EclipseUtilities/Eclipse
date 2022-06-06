@@ -295,7 +295,11 @@ function lib:CreateInput(infoText,text,script,int)
     end)
 
     input.FocusLost:Connect(function()
-        fire(input.Text)
+        if int then
+            fire(tonumber(input.Text))
+        else
+            fire(input.Text)
+        end
     end)
 end
 
