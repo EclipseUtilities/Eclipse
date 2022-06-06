@@ -26,6 +26,16 @@ text : <string> : Text that is displayed on the section.
 ]]
 ```
 
+## Creating a Label
+
+```lua
+Eclipse:CreateLabel("Text to Display")
+
+--[[
+text : <string> : Text that is displayed on the label.
+]]
+```
+
 ## Creating a Button
 
 ```lua
@@ -45,12 +55,13 @@ function : <function> : The script that is ran upon the user clicking the button
 ```lua
 Eclipse:CreateToggle("Text to Display", function(state)
 
-end)
+end,defautState)
 
 --[[
 text : <string> : Text that is displayed on the toggle.
 function : <function> : The script that is ran upon the user clicking the toggle.
 state : <boolvalue> : Activates every time the toggle is clicked, returns whether the toggle is set to true or false.
+defaultState : <boolvalue | optional> : The default state of the toggle (if true then put ,true - otherwise leave as false.
 ]]
 ```
 
