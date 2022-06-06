@@ -169,7 +169,7 @@ function lib:CreateButton(text,script)
 end
 
 function lib:CreateToggle(text,script,defaultStatus)
-    local enabled=false
+    local enabled=defaultStatus or false
     script=script or function() end
     local toAddTo=game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
     local toggleHolder=Instance.new("TextLabel")
@@ -196,7 +196,7 @@ function lib:CreateToggle(text,script,defaultStatus)
     toggle.AutoButtonColor=false
     toggle.AnchorPoint=Vector2.new(0.5,0.5)
     toggle.Text=""
-    toggle.BackgroundColor3=Color3.fromRGB(36, 36, 36)
+    toggle.BackgroundColor3=enabled and Color3.fromRGB(57, 110, 71) or Color3.fromRGB(36,36,36)
     toggle.Size=UDim2.new(0,25,0,25)
     toggle.Position=UDim2.new(0.98,0,0.5,0)
     toggle.Parent=toggleHolder
@@ -208,11 +208,6 @@ function lib:CreateToggle(text,script,defaultStatus)
     uiStroke.ApplyStrokeMode=Enum.ApplyStrokeMode.Border
     uiStroke.Color=Color3.fromRGB(50,50,50)
     uiStroke.Parent=toggle
-
-    if defaultStatus then
-        enabled=true
-        toggle.BackgroundColor3=enabled and Color3.fromRGB(57, 110, 71) or Color3.fromRGB(36,36,36)
-    end
 
     toggleHolder.Parent=toAddTo
 
