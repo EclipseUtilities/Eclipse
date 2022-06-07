@@ -137,7 +137,7 @@ function lib:CreateLabel(text,centered)
     label.Text=text
     label.TextColor3=Color3.fromRGB(220,220,220)
     label.TextScaled=true
-    label.TextXAlignment=(centered and Enum.TextXAlignment.Center)or Enum.TextXAlignment.Left
+    label.TextXAlignment=(centered and Enum.TextXAlignment.Center)or(not centered and Enum.TextXAlignment.Left)
     label.Size=UDim2.new(1,0,0,35)
 
     local uiCorner=Instance.new("UICorner")
