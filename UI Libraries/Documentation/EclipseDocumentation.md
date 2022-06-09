@@ -29,10 +29,11 @@ text : <string> : Text that is displayed on the section.
 ## Creating a Label
 
 ```lua
-Eclipse:CreateLabel("Text to Display")
+Eclipse:CreateLabel("Text to Display",false)
 
 --[[
 text : <string> : Text that is displayed on the label.
+centered : <boolvalue | optional> : Set this to true to center the label text, otherwise ignore this.
 ]]
 ```
 
@@ -76,7 +77,7 @@ end)
 --[[
 text : <string> : Text that is displayed inside of the input box.
 function : <function> : The script that is ran upon the user leaving the textbox.
-inputtedText : <string | number> : The inputted text into the input by the user.
+inputtedText : <string / number> : The inputted text into the input by the user.
 ]]
 ```
 
