@@ -355,7 +355,7 @@ function lib:CreateBind(bindText,script)
     local bindKey=Instance.new("StringValue")
     bindKey.Name="Binding"
     bindKey.Parent=bindButton
-	bindKey.Value=''
+    bindKey.Value=''
 
     local bindText=Instance.new("TextLabel")
     bindText.AnchorPoint=Vector2.new(0.5,0.5)
