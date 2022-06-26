@@ -209,7 +209,7 @@ function lib:CreateButton(text,script)
     end)
     
     button.MouseButton1Click:Connect(function()
-        script()
+        pcall(script)
     end)
 end
 
