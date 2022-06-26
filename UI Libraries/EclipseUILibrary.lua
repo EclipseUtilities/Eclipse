@@ -335,7 +335,7 @@ function lib:CreateInput(infoText,text,script,int,plr)
 
     input.FocusLost:Connect(function()
         if plr then
-            if getPlayer(input.Text) then
+            if input.Text~= "" and getPlayer(input.Text) then
                 input.Text=tostring(getPlayer(input.Text))
                 fire(getPlayer(input.Text))
             end
