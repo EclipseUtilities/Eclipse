@@ -3,11 +3,22 @@ local keybind_listening=false
 local UIS=game:GetService("UserInputService")
 local first=true
 local bindTable,lib,connectionTable={},{},{}
+local players = game:GetService("Players")
 
 for _,v in pairs(game.CoreGui:GetChildren()) do
     if v.Name==name then
         v:Destroy()
     end
+end
+
+local function getPlayer(user)
+    user = user:lower()
+    for _,plr in ipairs(players:GetPlayers()) do
+        if user == plr.Name:lower():sub(1, #user) then
+            return plr
+        end
+    end
+    return nil
 end
 
 function lib:CreateWindow()
@@ -31,11 +42,11 @@ function lib:CreateWindow()
     frame.Active=true
     frame.Parent=window
 
-    local uiCorner = Instance.new("UICorner")
+    local uiCorner=Instance.new("UICorner")
     uiCorner.CornerRadius=UDim.new(0,8)
     uiCorner.Parent=frame
 
-    local dropShadow = Instance.new("ImageLabel")
+    local dropShadow=Instance.new("ImageLabel")
     dropShadow.AnchorPoint=Vector2.new(0.5,0.5)
     dropShadow.Size=UDim2.new(1,30,1,30)
     dropShadow.Position=UDim2.new(0.5,0,0.5,0)
@@ -126,7 +137,7 @@ function lib:CreateSection(text)
     grad.Parent=sectionText
 
     sectionText.Parent=toAddTo
-    if first then first = false end
+    if first then first=false end
 end
 
 function lib:CreateLabel(text,centered)
@@ -181,11 +192,11 @@ function lib:CreateButton(text,script)
     button.Parent=toAddTo
 
     button.MouseEnter:Connect(function()
-        button.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+        button.BackgroundColor3=Color3.fromRGB(29, 29, 29)
     end)
     
     button.MouseLeave:Connect(function()
-       button.BackgroundColor3 = Color3.fromRGB(32,32,32)
+       button.BackgroundColor3=Color3.fromRGB(32,32,32)
     end)
     
     button.MouseButton1Click:Connect(function()
@@ -238,13 +249,13 @@ function lib:CreateToggle(text,script,defaultStatus)
 
     toggle.MouseEnter:Connect(function()
         if toggle.BackgroundColor3 ~= Color3.fromRGB(57, 110, 71) then
-            toggle.BackgroundColor3 = Color3.fromRGB(32, 32, 32)
+            toggle.BackgroundColor3=Color3.fromRGB(32, 32, 32)
         end
     end)
     
     toggle.MouseLeave:Connect(function()
         if toggle.BackgroundColor3 ~= Color3.fromRGB(57, 110, 71) then
-            toggle.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
+            toggle.BackgroundColor3=Color3.fromRGB(36, 36, 36)
         end
     end)
     
@@ -256,7 +267,7 @@ function lib:CreateToggle(text,script,defaultStatus)
     toggle.MouseButton1Click:Connect(fire)
 end
 
-function lib:CreateInput(infoText,text,script,int)
+function lib:CreateInput(infoText,text,script,int,plr)
     script=script or function() end
     local toAddTo=game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
     local inputHolder=Instance.new("TextLabel")
@@ -315,12 +326,20 @@ function lib:CreateInput(infoText,text,script,int)
 
     input:GetPropertyChangedSignal("Text"):Connect(function()
         if int then
-            input.Text = input.Text:gsub('%D+', '');
+            input.Text=input.Text:gsub('%D+', '');
+        end
+        if plr then
+            input.Text=input.Text:sub(1,35)
         end
     end)
 
     input.FocusLost:Connect(function()
-        if int then
+        if plr then
+            if getPlayer(input.Text) then
+                input.Text=getPlayer(input.Text)
+                fire(getPlayer(input.Text))
+            end
+        elseif int then
             fire(tonumber(input.Text))
         else
             fire(input.Text)
@@ -355,7 +374,7 @@ function lib:CreateBind(bindText,script)
     local bindKey=Instance.new("StringValue")
     bindKey.Name="Binding"
     bindKey.Parent=bindButton
-    bindKey.Value=''
+	bindKey.Value=''
 
     local bindText=Instance.new("TextLabel")
     bindText.AnchorPoint=Vector2.new(0.5,0.5)
@@ -377,11 +396,11 @@ function lib:CreateBind(bindText,script)
     bindButton.Parent=toAddTo
 
     bindButton.MouseEnter:Connect(function()
-        bindButton.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+        bindButton.BackgroundColor3=Color3.fromRGB(29, 29, 29)
     end)
     
     bindButton.MouseLeave:Connect(function()
-        bindButton.BackgroundColor3 = Color3.fromRGB(32,32,32)
+        bindButton.BackgroundColor3=Color3.fromRGB(32,32,32)
     end)
 
     local function fire(key)
@@ -389,40 +408,40 @@ function lib:CreateBind(bindText,script)
     end
     local configuring
     bindButton.Activated:Connect(function()
-        if configuring then configuring = nil end
-        configuring = bindButton
+        if configuring then configuring=nil end
+        configuring=bindButton
         if table.find(bindTable,configuring:FindFirstChildWhichIsA("StringValue").Value) then
             for i,v in pairs(bindTable) do
-                if v == configuring:FindFirstChildWhichIsA("StringValue").Value then
+                if v==configuring:FindFirstChildWhichIsA("StringValue").Value then
                     table.remove(bindTable,i)
                 end
             end
         end
-        keybind_listening = true
-        configuring.TextLabel.Text = "[ . . . ]"
+        keybind_listening=true
+        configuring.TextLabel.Text="[ . . . ]"
     end)
     local key='[NONE]'
     connectionTable[#connectionTable+1]=UIS.InputBegan:Connect(function(input,typing)
         if typing then return end
-        if input.UserInputType == Enum.UserInputType.Keyboard then
-            if string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._")) == bindKey.Value then
+        if input.UserInputType==Enum.UserInputType.Keyboard then
+            if string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._"))==bindKey.Value then
 				if key then
                     pcall(script)
 				end
             end
             if not configuring then return end
-            if keybind_listening == true then
+            if keybind_listening==true then
                 if not table.find(bindTable,string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._"))) then
                     table.insert(bindTable,string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._")))
-                    configuring:FindFirstChildWhichIsA("StringValue").Value = string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._"))
-                    configuring.TextLabel.Text = string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._"))
+                    configuring:FindFirstChildWhichIsA("StringValue").Value=string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._"))
+                    configuring.TextLabel.Text=string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._"))
 					key=tostring(input.KeyCode.Name)
 					fire(key);
                 else
-                    configuring.TextLabel.Text = "[TAKEN]"
+                    configuring.TextLabel.Text="[TAKEN]"
                 end
 				keybind_listening=false
-                configuring = nil
+                configuring=nil
             end
         end
     end)
