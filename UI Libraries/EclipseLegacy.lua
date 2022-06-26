@@ -1,414 +1,305 @@
-local window,frame,name=nil,nil,"Eclipse"
-local keybind_listening=false
-local UIS=game:GetService("UserInputService")
-local first=true
-local bindTable,lib,connectionTable={},{},{}
+local window,frame,name = nil,nil,"EclipseLegacy"
+local keybind_listening = false
+local UIS = game:GetService("UserInputService")
+local bindTable,lib = {},{}
+local connectionTable = {}
 
 for _,v in pairs(game.CoreGui:GetChildren()) do
-    if v.Name==name then
+    if v.Name == name then
         v:Destroy()
     end
 end
 
 function lib:CreateWindow()
-    local defaultUIGradient=Instance.new("UIGradient")
-    defaultUIGradient.Rotation=90
-    defaultUIGradient.Color=ColorSequence.new{
-        ColorSequenceKeypoint.new(0,Color3.fromRGB(200,200,200)),
-        ColorSequenceKeypoint.new(0.25,Color3.fromRGB(200,200,200)),
-        ColorSequenceKeypoint.new(1,Color3.fromRGB(89,89,89))
-    }
-    window=Instance.new("ScreenGui")
-    window.Name=name
-
-    frame=Instance.new("Frame")
-    frame.AnchorPoint=Vector2.new(0.5,0.5)
-    frame.Size=UDim2.new(0.25,0,0.35,0)
-    frame.Position=UDim2.new(0.317,0,0.299,0)
-    frame.BackgroundColor3=Color3.fromRGB(25,25,25)
-    frame.Draggable=true
-    frame.Selectable=true
-    frame.Active=true
-    frame.Parent=window
-
     local uiCorner = Instance.new("UICorner")
-    uiCorner.CornerRadius=UDim.new(0,8)
-    uiCorner.Parent=frame
-
+    uiCorner.CornerRadius = UDim.new(0,10)
+    local uiCorner2 = uiCorner:Clone()
     local dropShadow = Instance.new("ImageLabel")
-    dropShadow.AnchorPoint=Vector2.new(0.5,0.5)
-    dropShadow.Size=UDim2.new(1,30,1,30)
-    dropShadow.Position=UDim2.new(0.5,0,0.5,0)
-    dropShadow.BackgroundTransparency=1
-    dropShadow.ImageColor3=Color3.fromRGB(15,15,15)
-    dropShadow.ScaleType=Enum.ScaleType.Slice
-    dropShadow.SliceCenter=Rect.new(24,24,276,276)
-    dropShadow.SliceScale=1
-    dropShadow.Image="http://www.roblox.com/asset/?id=6147985449"
-    dropShadow.Parent=frame
-
-    local text=Instance.new("TextLabel")
-    text.Size=UDim2.new(1,0,0.09,0)
-    text.BackgroundTransparency=1
-    text.Font=Enum.Font.Gotham
-    text.RichText=true
-    text.Text="<b>ECLIPSE</b> Library"
-    text.TextColor3=Color3.fromRGB(255,255,255)
-    text.TextScaled=true
-    text.TextXAlignment=Enum.TextXAlignment.Left
-    defaultUIGradient.Parent=text
-    text.Parent=frame
-
-    local uiPadding=Instance.new("UIPadding")
-    uiPadding.PaddingLeft=UDim.new(0.025, 0)
-    uiPadding.PaddingBottom=UDim.new(0.15, 0)
-    uiPadding.PaddingTop=UDim.new(0.225, 0)
-    uiPadding.Parent=text
-
-    local scrollingFrame=Instance.new("ScrollingFrame")
-    scrollingFrame.AnchorPoint=Vector2.new(0.5,0.5)
-    scrollingFrame.Position=UDim2.new(0.5,0,0.549,0)
-    scrollingFrame.Size=UDim2.new(0.96,0,0.89,0)
-    scrollingFrame.BackgroundTransparency=1
-    scrollingFrame.ScrollBarThickness=0
-    scrollingFrame.Parent=frame
-
-    local uiPadding=Instance.new("UIPadding")
-    uiPadding.PaddingTop=UDim.new(0,4)
-    uiPadding.Parent=scrollingFrame
-
-    local layout=Instance.new("UIListLayout")
-    layout.Padding=UDim.new(0,3)
-    layout.HorizontalAlignment=Enum.HorizontalAlignment.Center
-    layout.Parent=scrollingFrame
-    layout.SortOrder=Enum.SortOrder.LayoutOrder
-
-    window.Parent=game.CoreGui
-
-    scrollingFrame.CanvasSize=UDim2.new(0,0,0,layout.AbsoluteContentSize.Y)
+    dropShadow.Image = "http://www.roblox.com/asset/?id=6147985449"
+    dropShadow.Size = UDim2.new(1,30,1,30)
+    dropShadow.AnchorPoint = Vector2.new(0.5,0.5)
+    dropShadow.Position = UDim2.new(0.5,0,0.5,0)
+    dropShadow.ImageColor3 = Color3.fromRGB(39,39,39)
+    dropShadow.BorderSizePixel = 0
+    dropShadow.BackgroundTransparency = 1
+    dropShadow.ScaleType = Enum.ScaleType.Slice
+    dropShadow.SliceCenter = Rect.new(20, 20, 280, 280)
+    dropShadow.SliceScale = 1
+    local text = Instance.new("TextLabel")
+    text.BackgroundTransparency = 1 
+    text.AnchorPoint = Vector2.new(0.5,0.5)
+    text.Size = UDim2.new(0.8,0,0.05,0)
+    text.Position = UDim2.new(0.5,0,0.05,0)
+    text.TextColor3 = Color3.fromRGB(127, 127, 127)
+    text.Font = Enum.Font.GothamSemibold
+    text.TextScaled = true
+    text.Text = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+    local scrollingFrame = Instance.new("ScrollingFrame")
+    scrollingFrame.BackgroundTransparency = 1
+    scrollingFrame.AnchorPoint = Vector2.new(0.5,0.5)
+    scrollingFrame.Position = UDim2.new(0.5,0,0.54,0)
+    scrollingFrame.Size = UDim2.new(0.96,0,0.88,0)
+    scrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(140,140,140)
+    scrollingFrame.ScrollBarThickness = 4
+    scrollingFrame.BorderSizePixel = 0
+    local layout = Instance.new("UIListLayout")
+    layout.Padding = UDim.new(0,3)
+    layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+    layout.Parent = scrollingFrame
+    layout.SortOrder = Enum.SortOrder.LayoutOrder
+    local padding = Instance.new("UIPadding")
+    padding.PaddingTop = UDim.new(0,3)
+    padding.Parent = scrollingFrame
+    local scrollingFrameParent = Instance.new("Frame")
+    scrollingFrameParent.AnchorPoint = Vector2.new(0.5,0.5)
+    scrollingFrameParent.Position = UDim2.new(0.5,0,0.54,0) 
+    scrollingFrameParent.Size = UDim2.new(0.96,0,0.88,0)
+    scrollingFrameParent.BackgroundColor3 = Color3.fromRGB(45,45,45)
+    uiCorner2.Parent = scrollingFrameParent
+    window = Instance.new("ScreenGui")
+    window.IgnoreGuiInset = true
+    window.ResetOnSpawn = false
+    window.Name = name
+    frame = Instance.new("Frame")
+    uiCorner.Parent = frame
+    dropShadow.Parent = frame
+    text.Parent = frame
+    scrollingFrameParent.Parent = frame
+    scrollingFrame.Parent = frame
+    frame.Parent = window
+    frame.Size = UDim2.new(0.25,0,0.35,0)
+    frame.AnchorPoint = Vector2.new(0.5,0.5)
+    frame.Position = UDim2.new(0.5,0,0.5,0)
+    frame.Draggable = true
+    frame.Selectable = true
+    frame.Active = true
+    frame.BackgroundColor3 = Color3.fromRGB(39,39,39)
+    window.Parent = game.CoreGui
+    
+    scrollingFrame.CanvasSize = UDim2.new(0,0,0,layout.AbsoluteContentSize.Y)
     scrollingFrame.ChildAdded:Connect(function(child)
-        scrollingFrame.CanvasSize=UDim2.new(0,0,0,layout.AbsoluteContentSize.Y+child.Size.Y.Offset+6+layout.Padding.Offset)
+        scrollingFrame.CanvasSize = UDim2.new(0,0,0,layout.AbsoluteContentSize.Y + child.Size.Y.Offset + 6 + layout.Padding.Offset)
     end)
 end
 
-function lib:CreateSection(text)
-    local toAddTo=game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
-    local sectionText=Instance.new("TextLabel")
-    sectionText.BackgroundTransparency=1
-    sectionText.TextXAlignment=Enum.TextXAlignment.Left
-    sectionText.TextColor3=Color3.fromRGB(255,255,255)
-    sectionText.Text=text
-    sectionText.Size=UDim2.new(1,0,0,20)
-    sectionText.Font=Enum.Font.GothamBold
-    sectionText.TextScaled=true
-
-    if not first then
-        local gap=Instance.new("TextLabel")
-        gap.BackgroundTransparency=1
-        gap.Size=UDim2.new(1,0,0,10)
-        gap.Text=""
-        gap.Parent=toAddTo
-    end
-
-    local uiPadding=Instance.new("UIPadding")
-    uiPadding.PaddingLeft=UDim.new(0.01,0)
-    uiPadding.PaddingTop=UDim.new(0.075)
-    uiPadding.PaddingBottom=UDim.new(0.075,0)
-    uiPadding.Parent=sectionText
-
-    local grad=Instance.new("UIGradient")
-    grad.Rotation=90
-    grad.Color=ColorSequence.new{
-        ColorSequenceKeypoint.new(0,Color3.fromRGB(220,220,220)),
-        ColorSequenceKeypoint.new(0.25,Color3.fromRGB(220,220,220)),
-        ColorSequenceKeypoint.new(1,Color3.fromRGB(109,109,109))
-    }
-    grad.Parent=sectionText
-
-    sectionText.Parent=toAddTo
-    if first then first = false end
-end
-
-function lib:CreateLabel(text,centered)
-    local toAddTo=game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
-    local label=Instance.new("TextLabel")
-    label.BackgroundColor3=Color3.fromRGB(32,32,32)
-    label.Font=Enum.Font.Gotham
-    label.Text=text
-    label.TextColor3=Color3.fromRGB(220,220,220)
-    label.TextScaled=true
-    label.TextXAlignment=(centered and Enum.TextXAlignment.Center)or(not centered and Enum.TextXAlignment.Left)
-    label.Size=UDim2.new(1,0,0,35)
-
-    local uiCorner=Instance.new("UICorner")
-    uiCorner.CornerRadius=UDim.new(0,5)
-    uiCorner.Parent=label
-
-    local uiPadding=Instance.new("UIPadding")
-    uiPadding.PaddingLeft=UDim.new(0.025, 0)
-    uiPadding.PaddingRight=UDim.new(0.025, 0)
-    uiPadding.PaddingBottom=UDim.new(0.225, 0)
-    uiPadding.PaddingTop=UDim.new(0.225, 0)
-    uiPadding.Parent=label
-
-    label.Parent=toAddTo
-end
-
-function lib:CreateButton(text,script)
-    script=script or function() end
-    local toAddTo=game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
-    local button=Instance.new("TextButton")
-    button.BackgroundColor3=Color3.fromRGB(32,32,32)
-    button.Font=Enum.Font.Gotham
-    button.Text=text
-    button.TextColor3=Color3.fromRGB(220,220,220)
-    button.TextScaled=true
-    button.AutoButtonColor=false
-    button.TextXAlignment=Enum.TextXAlignment.Left
-    button.Size=UDim2.new(1,0,0,35)
-
-    local uiCorner=Instance.new("UICorner")
-    uiCorner.CornerRadius=UDim.new(0,5)
-    uiCorner.Parent=button
-
-    local uiPadding=Instance.new("UIPadding")
-    uiPadding.PaddingLeft=UDim.new(0.025, 0)
-    uiPadding.PaddingRight=UDim.new(0.025, 0)
-    uiPadding.PaddingBottom=UDim.new(0.225, 0)
-    uiPadding.PaddingTop=UDim.new(0.225, 0)
-    uiPadding.Parent=button
-
-    button.Parent=toAddTo
-
+function lib:Button(text,toRun)
+    toRun = toRun or function() end
+    local toAddTo = game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
+    local button = Instance.new("TextButton")
+    button.Font = Enum.Font.Gotham
+    button.TextScaled = true
+    button.TextColor3 = Color3.fromRGB(152,152,152)
+    button.Size = UDim2.new(0.925,0,0,27)
+    button.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
+    button.Text = text
+    button.AutoButtonColor = false
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0,5)
+    corner.Parent = button
+    local padding = Instance.new("UIPadding")
+    padding.PaddingBottom = UDim.new(0.15,0)
+    padding.PaddingTop = UDim.new(0.15,0)
+    padding.Parent = button
+    button.Parent = toAddTo
+    
     button.MouseEnter:Connect(function()
-        button.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+        button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     end)
     
     button.MouseLeave:Connect(function()
-       button.BackgroundColor3 = Color3.fromRGB(32,32,32)
+       button.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
     end)
     
     button.MouseButton1Click:Connect(function()
-        pcall(script)
+        pcall(toRun)
     end)
 end
 
-function lib:CreateToggle(text,script,defaultStatus)
-    local enabled=defaultStatus or false
-    script=script or function() end
-    local toAddTo=game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
-    local toggleHolder=Instance.new("TextLabel")
-    toggleHolder.BackgroundColor3=Color3.fromRGB(32,32,32)
-    toggleHolder.Font=Enum.Font.Gotham
-    toggleHolder.Text=text
-    toggleHolder.TextColor3=Color3.fromRGB(220,220,220)
-    toggleHolder.TextScaled=true
-    toggleHolder.TextXAlignment=Enum.TextXAlignment.Left
-    toggleHolder.Size=UDim2.new(1,0,0,35)
-
-    local uiCorner=Instance.new("UICorner")
-    uiCorner.CornerRadius=UDim.new(0,5)
-    uiCorner.Parent=toggleHolder
-
-    local uiPadding=Instance.new("UIPadding")
-    uiPadding.PaddingLeft=UDim.new(0.025, 0)
-    uiPadding.PaddingRight=UDim.new(0.025, 0)
-    uiPadding.PaddingBottom=UDim.new(0.225, 0)
-    uiPadding.PaddingTop=UDim.new(0.225, 0)
-    uiPadding.Parent=toggleHolder
-
-    local toggle=Instance.new("TextButton")
-    toggle.AutoButtonColor=false
-    toggle.AnchorPoint=Vector2.new(0.5,0.5)
-    toggle.Text=""
-    toggle.BackgroundColor3=enabled and Color3.fromRGB(57, 110, 71) or Color3.fromRGB(36,36,36)
-    toggle.Size=UDim2.new(0,25,0,25)
-    toggle.Position=UDim2.new(0.98,0,0.5,0)
-    toggle.Parent=toggleHolder
-
-    local uiCorner2=uiCorner:Clone()
-    uiCorner2.Parent=toggle
-
-    local uiStroke=Instance.new("UIStroke")
-    uiStroke.ApplyStrokeMode=Enum.ApplyStrokeMode.Border
-    uiStroke.Color=Color3.fromRGB(50,50,50)
-    uiStroke.Parent=toggle
-
-    toggleHolder.Parent=toAddTo
-
-    toggle.MouseEnter:Connect(function()
-        if toggle.BackgroundColor3 ~= Color3.fromRGB(57, 110, 71) then
-            toggle.BackgroundColor3 = Color3.fromRGB(32, 32, 32)
+function lib:Toggle(toggleText,toRun,default)
+    local enabled = false
+	default=default or false
+    toRun = toRun or function() end
+    local toAddTo = game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
+    local toggle = Instance.new("TextLabel")
+    toggle.Font = Enum.Font.Gotham
+    toggle.TextScaled = true
+    toggle.TextColor3 = Color3.fromRGB(152,152,152)
+    toggle.Size = UDim2.new(0.925,0,0,27)
+    toggle.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
+    toggle.TextXAlignment = Enum.TextXAlignment.Left
+    toggle.Text = toggleText
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0,5)
+    corner.Parent = toggle
+    local corner2 = corner:Clone()
+    local padding = Instance.new("UIPadding")
+    padding.PaddingBottom = UDim.new(0.15,0)
+    padding.PaddingTop = UDim.new(0.15,0)
+    padding.PaddingLeft = UDim.new(0.025,0)
+    padding.PaddingRight = UDim.new(0.3,0)
+    padding.Parent = toggle
+    local toggleButton = Instance.new("TextButton")
+    toggleButton.AutoButtonColor = false
+    toggleButton.Size = UDim2.new(0,19,0,19)
+    toggleButton.AnchorPoint = Vector2.new(0.5,0.5)
+    toggleButton.Position = UDim2.new(1.39,0,0.5,0)
+    toggleButton.BackgroundColor3 = Color3.fromRGB(61, 61, 61)
+    toggleButton.Text = ""
+    corner2.Parent = toggleButton
+    toggleButton.Parent = toggle
+    toggle.Parent = toAddTo
+    
+    toggleButton.MouseEnter:Connect(function()
+        if toggleButton.BackgroundColor3 ~= Color3.fromRGB(65, 126, 71) then
+            toggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
         end
     end)
     
-    toggle.MouseLeave:Connect(function()
-        if toggle.BackgroundColor3 ~= Color3.fromRGB(57, 110, 71) then
-            toggle.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
+    toggleButton.MouseLeave:Connect(function()
+        if toggleButton.BackgroundColor3 ~= Color3.fromRGB(65, 126, 71) then
+            toggleButton.BackgroundColor3 = Color3.fromRGB(61, 61, 61)
         end
     end)
     
     local function fire()
-        enabled=not enabled
-        toggle.BackgroundColor3=enabled and Color3.fromRGB(57, 110, 71) or Color3.fromRGB(36,36,36)
-        pcall(script,enabled)
+        enabled = not enabled
+        toggleButton.BackgroundColor3 = enabled and Color3.fromRGB(65, 126, 71) or Color3.fromRGB(61,61,61)
+        pcall(toRun, enabled)
     end
-    toggle.MouseButton1Click:Connect(fire)
+	if default then 
+		fire()
+	end;
+    toggleButton.MouseButton1Click:Connect(fire)
 end
 
-function lib:CreateInput(infoText,text,script,int,plr)
-    script=script or function() end
-    local toAddTo=game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
-    local inputHolder=Instance.new("TextLabel")
-    inputHolder.BackgroundColor3=Color3.fromRGB(32,32,32)
-    inputHolder.Font=Enum.Font.Gotham
-    inputHolder.Text=text
-    inputHolder.TextColor3=Color3.fromRGB(220,220,220)
-    inputHolder.TextScaled=true
-    inputHolder.TextXAlignment=Enum.TextXAlignment.Left
-    inputHolder.Size=UDim2.new(1,0,0,35)
-
-    local uiCorner=Instance.new("UICorner")
-    uiCorner.CornerRadius=UDim.new(0,5)
-    uiCorner.Parent=inputHolder
-
-    local uiPadding=Instance.new("UIPadding")
-    uiPadding.PaddingLeft=UDim.new(0.025, 0)
-    uiPadding.PaddingRight=UDim.new(0.025, 0)
-    uiPadding.PaddingBottom=UDim.new(0.225, 0)
-    uiPadding.PaddingTop=UDim.new(0.225, 0)
-    uiPadding.Parent=inputHolder
-
-    local input=Instance.new("TextBox")
-    input.AnchorPoint=Vector2.new(0.5,0.5)
-    input.PlaceholderText=infoText
-    input.PlaceholderColor3=Color3.fromRGB(75,75,75)
-    input.TextColor3=Color3.fromRGB(210,210,210)
-    input.Text=""
-    input.Font=Enum.Font.Gotham
-    input.BackgroundColor3=Color3.fromRGB(36, 36, 36)
-    input.Size=UDim2.new(0.3,0,0,25)
-    input.TextScaled=true
-    input.Position=UDim2.new(0.858,0,0.5,0)
-    input.Parent=inputHolder
-
-    local uiPadding2=Instance.new("UIPadding")
-    uiPadding2.PaddingLeft=UDim.new(0.08, 0)
-    uiPadding2.PaddingRight=UDim.new(0.08, 0)
-    uiPadding2.PaddingBottom=UDim.new(0.12, 0)
-    uiPadding2.PaddingTop=UDim.new(0.12, 0)
-    uiPadding2.Parent=input
-
-    local uiCorner2=uiCorner:Clone()
-    uiCorner2.Parent=input
-
-    local uiStroke=Instance.new("UIStroke")
-    uiStroke.ApplyStrokeMode=Enum.ApplyStrokeMode.Border
-    uiStroke.Color=Color3.fromRGB(50,50,50)
-    uiStroke.Parent=input
-
-    inputHolder.Parent=toAddTo
+function lib:Input(infoText,placeHolderText,playerInput,intOnly,toRun)
+    local toAddTo = game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
+    local holder = Instance.new("TextLabel")
+    holder.Font = Enum.Font.Gotham
+    holder.Size = UDim2.new(0.925,0,0,27)
+    holder.TextScaled = true
+    holder.TextColor3 = Color3.fromRGB(152,152,152)
+    holder.Text = infoText
+    holder.TextXAlignment = Enum.TextXAlignment.Left
+    holder.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0,5)
+    corner.Parent = holder
+    local corner2 = corner:Clone()
+    local padding = Instance.new("UIPadding")
+    padding.PaddingBottom = UDim.new(0.15,0)
+    padding.PaddingTop = UDim.new(0.15,0)
+    local padding2 = padding:Clone()
+    padding2.PaddingLeft = UDim.new(0.025,0)
+    padding2.PaddingRight = UDim.new(0.3,0)
+    padding2.Parent = holder
+    local textBox = Instance.new("TextBox")
+    textBox.AnchorPoint = Vector2.new(0.5,0.5)
+    textBox.BackgroundColor3 = Color3.fromRGB(47,47,47)
+    textBox.Position = UDim2.new(1.152,0,0.5,0)
+    textBox.Size = UDim2.new(0.55,0,0.95,0)
+    textBox.Font = Enum.Font.Gotham
+    textBox.TextScaled = true
+    textBox.PlaceholderColor3 = Color3.fromRGB(81,81,81)
+    textBox.TextColor3 = Color3.fromRGB(152,152,152)
+    textBox.PlaceholderText = placeHolderText
+    local stroke = Instance.new("UIStroke")
+    stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+    stroke.Color = Color3.fromRGB(45,45,45)
+    stroke.Parent = textBox
+    textBox.Text = ""
+    corner2.Parent = textBox
+    padding.Parent = textBox
+    textBox.Parent = holder
+    holder.Parent = toAddTo
 
     local function fire(inputtedText)
-        pcall(function()script(inputtedText)end)
+        pcall(function()toRun(inputtedText)end)
     end
 
-    local players = game:GetService("Players")
+    if playerInput == true then
+        pcall(function()
+            local players = game:GetService("Players")
 
-    local function getPlayer(user)
-        user=user:lower()
-        for _,plr in ipairs(players:GetPlayers()) do
-            if user == plr.Name:lower():sub(1, #user) then
-                return plr
+            local function getPlayer(user)
+            	user = user:lower()
+            	for _,plr in ipairs(players:GetPlayers()) do
+            		if user == plr.Name:lower():sub(1, #user) then
+            			return plr
+            		end
+            	end
+            	return nil
             end
-        end
-        return nil
+            
+            textBox:GetPropertyChangedSignal("Text"):Connect(function()
+            	textBox.Text = textBox.Text:sub(1,35)
+            end)
+            
+            textBox.FocusLost:Connect(function()
+            	if getPlayer(textBox.Text) ~= nil and textBox.Text ~= "" then
+            		textBox.Text = tostring(getPlayer(textBox.Text))
+            	end
+            end)
+        end)
     end
+    if intOnly == true then
+        pcall(function()            
+            textBox:GetPropertyChangedSignal("Text"):Connect(function()
+            	textBox.Text = textBox.Text:sub(1,4)
+                textBox.Text = textBox.Text:gsub('%D+', '');
+            end)
 
-    input:GetPropertyChangedSignal("Text"):Connect(function()
-        if int then
-            input.Text = input.Text:gsub('%D+', '');
-        end
-        if plr then
-            input.Text = input.Text:sub(1,35)
-        end
-    end)
-    
-    input.FocusLost:Connect(function()
-        input.Text = tostring(getPlayer(input.Text))
-        if int then
-            fire(tonumber(input.Text))            
-        elseif plr and getPlayer(input.Text) then
-            fire(getPlayer(input.Text))
-        else
-            fire(input.Text)
-        end
-    end)
+            textBox.FocusLost:Connect(function()
+                fire(textBox.Text)
+            end)
+        end)
+    end
 end
 
-function lib:CreateBind(bindText,script)
-    script=script or function() end
-    local toAddTo=game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
-    local bindButton=Instance.new("TextButton")
-    bindButton.BackgroundColor3=Color3.fromRGB(32,32,32)
-    bindButton.Font=Enum.Font.Gotham
-    bindButton.Text=bindText
-    bindButton.TextColor3=Color3.fromRGB(220,220,220)
-    bindButton.TextScaled=true
-    bindButton.AutoButtonColor=false
-    bindButton.TextXAlignment=Enum.TextXAlignment.Left
-    bindButton.Size=UDim2.new(1,0,0,35)
-
-    local uiCorner=Instance.new("UICorner")
-    uiCorner.CornerRadius=UDim.new(0,5)
-    uiCorner.Parent=bindButton
-
-    local uiPadding=Instance.new("UIPadding")
-    uiPadding.PaddingLeft=UDim.new(0.025, 0)
-    uiPadding.PaddingRight=UDim.new(0.025, 0)
-    uiPadding.PaddingBottom=UDim.new(0.225, 0)
-    uiPadding.PaddingTop=UDim.new(0.225, 0)
-    uiPadding.Parent=bindButton
-
-    local bindKey=Instance.new("StringValue")
-    bindKey.Name="Binding"
-    bindKey.Parent=bindButton
-    bindKey.Value=''
-
-    local bindText=Instance.new("TextLabel")
-    bindText.AnchorPoint=Vector2.new(0.5,0.5)
-    bindText.BackgroundTransparency=1
-    bindText.Text="[NONE]"
-    bindText.Position=UDim2.new(0.858,0,0.5,0)
-    bindText.Size=UDim2.new(0.3,0,0,25)
-    bindText.Font=Enum.Font.Gotham
-    bindText.TextColor3=Color3.fromRGB(220,220,220)
-    bindText.TextScaled=true
-    bindText.TextXAlignment=Enum.TextXAlignment.Right
-    bindText.Parent=bindButton
-
-    local uiPadding2=Instance.new("UIPadding")
-    uiPadding2.PaddingBottom=UDim.new(0.17, 0)
-    uiPadding2.PaddingTop=UDim.new(0.17, 0)
-    uiPadding2.Parent=bindText
+function lib:Bind(bindText,toRun,default)
+	print(default)
+    toRun = toRun or function() end
+    local toAddTo = game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
+    local bind = Instance.new("TextButton")
+    bind.Font = Enum.Font.Gotham
+    bind.AutoButtonColor = false
+    bind.TextScaled = true
+    bind.TextColor3 = Color3.fromRGB(152,152,152)
+    bind.Size = UDim2.new(0.925,0,0,27)
+    bind.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
+    bind.TextXAlignment = Enum.TextXAlignment.Left
+    bind.Name = bindText
+    bind.Text = bindText..': '..(default and default)or "NONE"
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0,5)
+    corner.Parent = bind
+    local bindKey = Instance.new("StringValue")
+    bindKey.Name = "Binding"
+    bindKey.Parent = bind
+	bindKey.Value=default or ''
+    local padding = Instance.new("UIPadding")
+    padding.PaddingBottom = UDim.new(0.15,0)
+    padding.PaddingTop = UDim.new(0.15,0)
+    padding.PaddingLeft = UDim.new(0.025,0)
+    padding.PaddingRight = UDim.new(0.025,0)
+    padding.Parent = bind
+    bind.Parent = toAddTo
     
-    bindButton.Parent=toAddTo
-
-    bindButton.MouseEnter:Connect(function()
-        bindButton.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+    bind.MouseEnter:Connect(function()
+        bind.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     end)
     
-    bindButton.MouseLeave:Connect(function()
-        bindButton.BackgroundColor3 = Color3.fromRGB(32,32,32)
+    bind.MouseLeave:Connect(function()
+        bind.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
     end)
-
+    
     local function fire(key)
-        pcall(function()script(key)end)
+        pcall(function()toRun(key)end)
     end
     local configuring
-    bindButton.Activated:Connect(function()
+    bind.Activated:Connect(function()
         if configuring then configuring = nil end
-        configuring = bindButton
+        configuring = game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame:FindFirstChild(bind.Name)
         if table.find(bindTable,configuring:FindFirstChildWhichIsA("StringValue").Value) then
             for i,v in pairs(bindTable) do
                 if v == configuring:FindFirstChildWhichIsA("StringValue").Value then
@@ -417,15 +308,15 @@ function lib:CreateBind(bindText,script)
             end
         end
         keybind_listening = true
-        configuring.TextLabel.Text = "[ . . . ]"
+        configuring.Text = bindText..": [ . . . ]"
     end)
-    local key='[NONE]'
+    local key=default or 'None'
     connectionTable[#connectionTable+1]=UIS.InputBegan:Connect(function(input,typing)
         if typing then return end
         if input.UserInputType == Enum.UserInputType.Keyboard then
             if string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._")) == bindKey.Value then
 				if key then
-                    pcall(script)
+					fire()
 				end
             end
             if not configuring then return end
@@ -433,17 +324,38 @@ function lib:CreateBind(bindText,script)
                 if not table.find(bindTable,string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._"))) then
                     table.insert(bindTable,string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._")))
                     configuring:FindFirstChildWhichIsA("StringValue").Value = string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._"))
-                    configuring.TextLabel.Text = string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._"))
+                    configuring.Text = bindText..": "..string.sub(tostring(input.KeyCode), string.len("Enum.KeyCode._"))
 					key=tostring(input.KeyCode.Name)
 					fire(key);
                 else
-                    configuring.TextLabel.Text = "[TAKEN]"
+                    configuring.Text = bindText..": NONE [TAKEN]"
                 end
 				keybind_listening=false
                 configuring = nil
             end
         end
     end)
+end
+
+function lib:Section(sectionText,top)
+    local toAddTo = game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
+    local text = Instance.new("TextLabel")
+    text.Font = Enum.Font.GothamSemibold
+    text.TextScaled = true
+    text.TextColor3 = Color3.fromRGB(175,175,175)
+    text.BackgroundTransparency = 1
+    text.Text = sectionText
+    local padding = Instance.new("UIPadding")
+    if top == true then
+        padding.PaddingTop = UDim.new(0.15,0)
+        text.Size = UDim2.new(0.925,0,0,27)
+    else
+        padding.PaddingTop = UDim.new(0.4,0)
+        text.Size = UDim2.new(0.925,0,0,40)
+    end
+    padding.PaddingBottom = UDim.new(0.12,0)
+    padding.Parent = text
+    text.Parent = toAddTo
 end
 
 connectionTable[#connectionTable+1]=game.CoreGui.ChildRemoved:Connect(function(UI)
