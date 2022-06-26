@@ -21,6 +21,15 @@ local function getPlayer(user)
     return nil
 end
 
+local function getOption(options,text)
+    text=text:lower()
+    for _,option in ipairs(options) do
+        if text==option:lower():sub(1,#text) then
+            return option
+        end
+    end
+end
+
 function lib:CreateWindow()
     local defaultUIGradient=Instance.new("UIGradient")
     defaultUIGradient.Rotation=90
@@ -267,7 +276,7 @@ function lib:CreateToggle(text,script,defaultStatus)
     toggle.MouseButton1Click:Connect(fire)
 end
 
-function lib:CreateInput(infoText,text,script,int,plr)
+function lib:CreateInput(infoText,text,script,int,plr,options)
     script=script or function() end
     local toAddTo=game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
     local inputHolder=Instance.new("TextLabel")
@@ -334,7 +343,12 @@ function lib:CreateInput(infoText,text,script,int,plr)
     end)
 
     input.FocusLost:Connect(function()
-        if plr then
+        if options then
+            if input.Text~= "" and getOption(options,input.Text) then
+                input.Text=getOption(options,input.Text)
+                fire(getOption(options,input.Text))
+            end
+        elseif plr then
             if input.Text~= "" and getPlayer(input.Text) then
                 input.Text=tostring(getPlayer(input.Text))
                 fire(getPlayer(input.Text))
