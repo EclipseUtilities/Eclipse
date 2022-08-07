@@ -173,7 +173,7 @@ function lib:CreateLabel(text,centered)
     label.Parent=toAddTo
 end
 
-function lib:CreateButton(text,script)
+function lib:CreateButton(text,script,centered)
     script=script or function() end
     local toAddTo=game.CoreGui:FindFirstChild(name).Frame.ScrollingFrame
     local button=Instance.new("TextButton")
@@ -183,7 +183,7 @@ function lib:CreateButton(text,script)
     button.TextColor3=Color3.fromRGB(220,220,220)
     button.TextScaled=true
     button.AutoButtonColor=false
-    button.TextXAlignment=Enum.TextXAlignment.Left
+    button.TextXAlignment=(centered and Enum.TextXAlignment.Center)or(not centered and Enum.TextXAlignment.Left)
     button.Size=UDim2.new(1,0,0,35)
 
     local uiCorner=Instance.new("UICorner")
