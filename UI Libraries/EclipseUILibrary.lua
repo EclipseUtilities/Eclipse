@@ -1,14 +1,12 @@
-local window,frame,name=nil,nil,"Eclipse"
+local window,frame,name=nil,nil,"EclipseUIL"
 local keybind_listening=false
 local UIS=game:GetService("UserInputService")
 local first=true
 local bindTable,lib,connectionTable={},{},{}
 local players = game:GetService("Players")
 
-for _,v in pairs(game.CoreGui:GetChildren()) do
-    if v.Name==name then
-        v:Destroy()
-    end
+if game.CoreGui:FindFirstChild'EclipseUIL' then
+    game.CoreGui.EclipseUIL:Destroy()
 end
 
 local function getPlayer(user)
