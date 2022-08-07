@@ -60,7 +60,7 @@ function : <function> : The script that is ran upon the user clicking the button
 ```lua
 Eclipse:CreateToggle("Text to Display", function(state)
 
-end,defautState)
+end,defaultState)
 
 --[[
 text : <string> : Text that is displayed on the toggle.
