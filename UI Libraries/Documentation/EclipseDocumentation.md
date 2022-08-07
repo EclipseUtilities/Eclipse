@@ -13,7 +13,11 @@ local Eclipse = loadstring(game:HttpGet('https://raw.githubusercontent.com/Eclip
 ## Creating a Window
 
 ```lua
-Eclipse:CreateWindow()
+Eclipse:CreateWindow('UI Name')
+
+--[[
+text : <string> : Text that is displayed on the top of the UI library. RichText is enabled for this.
+]]
 ```
 
 ## Creating a Section
