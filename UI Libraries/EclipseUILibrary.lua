@@ -28,8 +28,8 @@ local function getOption(options,text)
     end
 end
 
-function lib:CreateWindow(name)
-    if not name then name='<b>ECLIPSE</b> Library' end
+function lib:CreateWindow(txtName)
+    if not txtName then txtName='<b>ECLIPSE</b> Library' end
     local defaultUIGradient=Instance.new("UIGradient")
     defaultUIGradient.Rotation=90
     defaultUIGradient.Color=ColorSequence.new{
@@ -71,7 +71,7 @@ function lib:CreateWindow(name)
     text.BackgroundTransparency=1
     text.Font=Enum.Font.Gotham
     text.RichText=true
-    text.Text=name
+    text.Text=txtName
     text.TextColor3=Color3.fromRGB(255,255,255)
     text.TextScaled=true
     text.TextXAlignment=Enum.TextXAlignment.Left
