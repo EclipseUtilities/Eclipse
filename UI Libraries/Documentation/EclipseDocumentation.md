@@ -46,11 +46,12 @@ centered : <boolvalue | optional> : Set this to true to center the label text, o
 ```lua
 Eclipse:CreateButton("Text to Display", function()
 
-end)
+end,false)
 
 --[[
 text : <string> : Text that is displayed on the button.
 function : <function> : The script that is ran upon the user clicking the button.
+centered : <boolean> : Whether the button text is/isn't centered.
 ]]
 ```
 
